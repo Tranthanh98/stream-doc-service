@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, viewport-fit=cover" />
+		<title>LOGIN PAGE</title>
+		<style type="text/css">
+			@font-face {
+				font-family: 'Open Sans';
+				font-weight: normal;
+				src: url('{{contextPath}}/static/fonts/Open-Sans-Regular.eot'); /* IE9 Compat Modes */
+				src: url('{{contextPath}}/static/fonts/Open-Sans-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+						url('{{contextPath}}/static/fonts/Open-Sans-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+						url('{{contextPath}}/static/fonts/Open-Sans-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+			}
+
+			@font-face {
+				font-family: 'Open Sans';
+				font-weight: 300;
+				src: url('{{contextPath}}/static/fonts/Open-Sans-Light.eot'); /* IE9 Compat Modes */
+				src: url('{{contextPath}}/static/fonts/Open-Sans-Light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+						url('{{contextPath}}/static/fonts/Open-Sans-Light.woff2') format('woff2'), /* Super Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-Light.woff') format('woff'), /* Pretty Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-Light.ttf')  format('truetype'), /* Safari, Android, iOS */
+						url('{{contextPath}}/static/fonts/Open-Sans-Light.svg#svgFontName') format('svg'); /* Legacy iOS */
+			}
+
+			@font-face {
+				font-family: 'Open Sans';
+				font-weight: 600;
+				src: url('{{contextPath}}/static/fonts/Open-Sans-SemiBold.eot'); /* IE9 Compat Modes */
+				src: url('{{contextPath}}/static/fonts/Open-Sans-SemiBold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+						url('{{contextPath}}/static/fonts/Open-Sans-SemiBold.woff2') format('woff2'), /* Super Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-SemiBold.woff') format('woff'), /* Pretty Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-SemiBold.ttf')  format('truetype'), /* Safari, Android, iOS */
+						url('{{contextPath}}/static/fonts/Open-Sans-SemiBold.svg#svgFontName') format('svg'); /* Legacy iOS */
+			}
+
+			@font-face {
+				font-family: 'Open Sans';
+				font-weight: bold;
+				src: url('{{contextPath}}/static/fonts/Open-Sans-Bold.eot'); /* IE9 Compat Modes */
+				src: url('{{contextPath}}/static/fonts/Open-Sans-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+						url('{{contextPath}}/static/fonts/Open-Sans-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-Bold.woff') format('woff'), /* Pretty Modern Browsers */
+						url('{{contextPath}}/static/fonts/Open-Sans-Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
+						url('{{contextPath}}/static/fonts/Open-Sans-Bold.svg#svgFontName') format('svg'); /* Legacy iOS */
+			}
+
+			* {
+				-webkit-box-sizing: border-box;
+				        box-sizing: border-box;
+			}
+
+			html, body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				font-size: 0;
+				text-align: center;
+				-webkit-box-sizing: border-box;
+				        box-sizing: border-box;
+				overflow: hidden;
+			}
+
+			body {
+				font-family: 'Open Sans';
+				background-image: url('{{contextPath}}/static/img-background.jpg');
+				background-repeat: no-repeat;
+				background-position: center; 
+				background-size: cover;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-align: center;
+				    -ms-flex-align: center;
+				        align-items: center;
+				-webkit-box-pack: center;
+				    -ms-flex-pack: center;
+				        justify-content: center;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				    -ms-flex-direction: column;
+				        flex-direction: column;
+			}
+
+			.unselectable {
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			.pointer {
+				cursor: pointer;
+			}
+
+			.disabled {
+				cursor: not-allowed;
+				opacity: 0.4;
+			}
+
+			.separator {
+				opacity: 0.4;
+				padding: 0 16px;
+			}
+
+			.main {
+				text-align: center;
+			}
+
+			.logo {
+				width: 287px;
+				height: 40px;
+				background-image: url('{{contextPath}}/static/sd-logo-white.svg');
+				background-repeat: no-repeat;
+				background-position: center; 
+				background-size: cover;
+				margin: auto;
+			}
+
+			.sign {
+				max-width: 400px;
+				max-height: 400px;
+				background-color: #FFF;
+				border-radius: 4px;
+				padding: 50px;
+				margin: 64px auto 32px auto;
+				text-align: left;
+			}
+
+			.sign-menu {
+				color: #717171;
+				margin-bottom: 24px;
+			}
+
+			.sign-menu span {
+				font-size: 16px;
+				line-height: 16px;
+			}
+
+			.label {
+				color: #717171;
+				opacity: 0.4;
+				font-size: 14px;
+				line-height: 14px;
+				margin-bottom: 12px;
+			}
+
+			input[type=text], input[type=password] {
+				width: 300px;
+				height: 40px;
+				border-radius: 4px;
+				padding: 0 20px;
+				margin-bottom: 16px;
+				display: inline-block;
+				border: 1px solid #CCC;
+			}
+
+			#user-pwd {
+				margin-bottom: 4px;
+			}
+
+			#display-msg {
+				height: 12px;
+				font-size: 12px;
+				line-height: 12px;
+			}
+
+			button {
+				width: 100%;
+				height: 41px;
+				border-radius: 4px;
+				background-color: #fc3d21;
+				color: #f1f2f0;
+				font-size: 14px;
+				font-weight: bold;
+				margin-top: 32px;
+				border: none;
+				cursor: pointer;
+			}
+
+			button:hover {
+				opacity: 0.8;
+			}
+
+			.footer {
+				font-size: 14px;
+				line-height: 14px;
+				color: #FFF;
+			}
+
+			@media (max-width: 767px) {
+				html, body {
+					overflow: initial;
+				}
+				
+				body {
+					background: none;
+				}
+
+				.logo {
+					background-image: url('{{contextPath}}/static/sd-logo-color.svg');
+				}
+
+				.sign {
+					margin: 40px auto 0 auto;
+				}
+
+				.footer {
+					color: #717171;
+				}
+			}
+
+			@media (max-height: 471px) and (max-width: 767px), (max-height: 527px) and (min-width: 768px) {
+				html, body {
+					height: initial;
+					overflow: visible;
+				}
+			}
+		</style>
+		<script type="text/javascript">
+			function getContextPath() {
+				var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+				return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+			};
+
+			function onSignIn() {
+				try {
+					(function () {
+						var msgEl = document.getElementById('display-msg');
+						msgEl.style.color = undefined;
+						msgEl.innerText = '';
+
+						var id = document.getElementById('user-id').value;
+						var pwd = document.getElementById('user-pwd').value;
+						if (!id) {
+							msgEl.style.color = 'red';
+							msgEl.innerText = 'Please enter your id';
+							return false;
+						}
+						if (!pwd) {
+							msgEl.style.color = 'red';
+							msgEl.innerText = 'Please enter your password';
+							return false;
+						}
+
+						var http = new XMLHttpRequest();
+						var url = getContextPath() + '/v4/auth';
+						var params = 'id=' + id + '&password=' + pwd;
+						http.open('POST', url, true);
+						http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+						http.onreadystatechange = function() {
+							if (http.readyState === 4 && http.status === 200) {
+								var status = http.responseText;
+								if (status === 'InvalidUserIdPw') {
+									msgEl.style.color = 'red';
+									msgEl.innerText = 'The username or password you entered is incorrect.';
+								} else {
+									var jsonObj = JSON.parse(http.responseText);
+									localStorage.setItem('refreshToken', jsonObj['refreshToken']);
+									msgEl.style.color = 'green';
+									msgEl.innerText = 'Log in successful. Please wait for redirection.';
+									location.href = '{{#redirect}}{{redirect}}{{/redirect}}';
+								}
+							}
+						}
+						http.send(params);
+					})();
+				} catch (e) {
+					console.error(e);
+				}
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="logo"></div>
+			<div class="sign">
+				<div class="sign-menu unselectable">
+					<span>Sign in</span>
+					<span class="separator">|</span>
+					<span class="pointer disabled">Sign up</span>
+				</div>
+				<form name="frm" onsubmit="return onSignIn(this)">
+					<div class="label unselectable">ID</div>
+					<input id="user-id" type="text" placeholder="ID" />
+					<div class="label unselectable">Password</div>
+					<input id="user-pwd" type="password" placeholder="Password" />
+					<div id="display-msg"></div>
+					<button type="submit">Sign in</button>
+				</form>
+			</div>
+			<div class="footer unselectable">StreamDocs, Most Powerful PDF Web Viewer</div>
+		</div>
+	</body>
+</html>

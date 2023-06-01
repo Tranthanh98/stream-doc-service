@@ -1,0 +1,53 @@
+{
+  "description": "TSA Sign Metadata",
+  "enable": false,
+  "enableType": "command",
+  "autoVerification" : true,
+  "renderTimeStamp" : true,
+  "amano": {
+    "description": "AmonoKorea TSA Sign setting information",
+    "signUrl": "http://211.175.81.101/tsp.php",
+    "verifyUrl": "http://211.175.81.101/tsp.php",
+    "licensePath": "C:/ePapyrus/sd/tsa/amano/etiming_key_dev.lic",
+    "ownerPassword": "",
+    "userPassword": "",
+    "retryEnable": false,
+    "tsaKey": "KOSCOM.TSA",
+    "encryption": "TYPEA",
+    "pkiApiType": "NPKI_API",
+    "attachFlag": "AUTO",
+    "imprintShape": "KOSCOM_CIRCULAR",
+    "imprintBackground": "OPAQUE",
+    "imprintPositionX": 10.0,
+    "imprintPositionY": 10.0,
+    "certPath": "",
+    "crlCertType": "CRL_CERT_NONE",
+    "crosscertSettings": {
+      "crosscertIp": "211.192.169.142",
+      "crosscertPort": "4299",
+      "crosscertId": "id",
+      "crosscertPwd": "pwd"
+    },
+    "gpkiApiLicensePath": "C:/TSS/GPKI/gpkiapi_1.4/conf",
+    "publicKeyPath": "C:/TSS/gtsa/xxxx_sig.cer",
+    "privateKeyPath": "C:/TSS/gtsa/xxxx_sig.key",
+    "privateKeyPassword": "xxxx"
+  },
+  "dream": {
+    "description": "DreamSecurity TSA Sign setting information",
+    "propertiesPath": "C:/ePapyrus/sd/pki/dream/pdfsigner.properties"
+  },
+  "localPath": {
+    "description": "local file path TSA Sign setting information",
+    "host": "localhost",
+    "port": "8890",
+    "initPath": "/pdf-gateway/api/tasks/tsa/init",
+    "resourceRootDirFrom": "",
+    "resourceRootDirTo": ""
+  },
+  "command": {
+    "commands": [
+      "/ePapyrus/sd/bin/tsa.bat"
+    ]
+  }
+}

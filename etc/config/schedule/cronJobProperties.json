@@ -1,0 +1,114 @@
+[
+	{
+		"name" :"orphanResourceRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.OrphanResourceRemover",
+		"args" : "",
+		"cron" : "0 0 0 1 * ?",
+		"description" : "이전 버전 캐시파일 삭제",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" :"temporaryResourceRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.TemporaryResourceRemover",
+		"args" : "",
+		"cron" : "0 0 5 * * ?",
+		"description" : "임시 파일 삭제",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "expiredResourceRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.ExpiredResourceRemover",
+		"args" : {
+			"deleteOption" : false
+		},
+		"cron" : "0 0 0 * * ?",
+		"description" : "만료된 파일 삭제",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "unassociatedFileRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.UnassociatedFileRemover",
+		"args" : "",
+		"cron" : "0 0 1 * * ?",
+		"description" : "ExpiredResourceRemover가 DB에서는 삭제했으나 FileSystem상에서는 지우지 못 한 잔여 파일들 삭제.",
+		"category": "regular",
+		"onOff": false
+	},
+	{
+		"name" : "signCacheRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.SignCacheRemover",
+		"args" : "",
+		"cron" : "0 0 0 * * ?",
+		"description" : "PKI, TSA 서명 및 검증시 생성한 캐시 파일 제거",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "dejavuRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.DejavuRemover",
+		"args" : "",
+		"cron" : "0 0 0 * * ?",
+		"description" : "만료된 Dejavu token 삭제",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "commandLogRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.CommandLogRemover",
+		"args" : "",
+		"cron" : "0 0 0 * * ?",
+		"description" : "Pdfio에서 생성한 로그파일을 삭제",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "refreshTokenRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.RefreshTokenRemover",
+		"args" : "",
+		"cron" : "0 0 * * * ?",
+		"description" : "만료된 Refresh token 삭제",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "gatheringSystemStatisticsJob",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.GatheringSystemStatisticsJob",
+		"args" : "",
+		"cron" : "0 0/10 * * * ?",
+		"description" : "시스템 정보 수집",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "deletedResourceCleaner",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.DeletedResourceCleaner",
+		"args" : {
+			"lifespan" : "1y"
+		},
+		"cron" : "0 0 0 * * ?",
+		"description" : "Deletion 마킹된 PdfResource 완전 삭제 (lifespan = 현재부터 'lifespan' 이전에 지워진 문서 제거, 미지정시 모든 문서 제거)",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "pkiLockRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.PkiLockRemover",
+		"args" : "",
+		"cron" : "*/10 * * * * ?",
+		"description" : "PKI 서명 중 문서 수정 방지를 위해 생성한 Lock 파일 제거",
+		"category": "regular",
+		"onOff": true
+	},
+	{
+		"name" : "processWorkspaceRemover",
+		"jobClass" : "com.epapyrus.pdf.sd.quartz.EpModuleWorkspaceRemover",
+		"args" : "",
+		"cron" : "0 0 0/12 * * ?",
+		"description" : "이파피루스 모듈 워크스페이스 디렉토리에서 제거되지 않은 파일들을 제거",
+		"category": "regular",
+		"onOff": true
+	}
+]

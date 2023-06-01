@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	">
+	<bean id="sdResExec" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+    <description>StreamDocs Resource Executor</description>
+		<property name="corePoolSize" value="${com.epapyrus.common.concurrent.channel.context.default.thread.pool.size}"/>
+		<property name="maxPoolSize" value="${com.epapyrus.common.concurrent.channel.context.default.thread.pool.size}"/>
+	</bean>
+
+	<bean id="sdSerialExec" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+    <description>StreamDocs serial Executor for dbms </description>
+		<property name="corePoolSize" value="1"/>
+		<property name="maxPoolSize" value="1"/>
+	</bean>
+	<context:component-scan base-package="com.epapyrus.pdf, com.epapyrus.common" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+		<context:exclude-filter type="assignable" expression="com.epapyrus.common.spring.err.ExcpCodeMapperFactory"/>
+	</context:component-scan>
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource"
+	      destroy-method="close" id="dataSource" depends-on="h2SysConfig">
+		<property name="driverClassName" value="${driver.class.name}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- sessionFactory 설정. hibernate.cfg.xml에 설정된 내용을 가져온다. -->
+	<bean id="sessionFactory"
+	      class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="hibernateLoggerProviderName">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation">
+			<value>classpath:config/hibernate.cfg.xml</value>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
+				<!-- 					<prop key="hibernate.dialect">com.epapyrus.hibernate.dialect.SequenceBlockedOracleDialect</prop> -->
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!--useful for debugging -->
+				<prop key="hibernate.generate_statistics">false</prop>
+				<!--					MSSql 에서 Deadlock 발생시 isolation 레벨 설정 필요-->
+				<!--					<prop key="hibernate.connection.isolation">1</prop>-->
+
+				<!--hibernate.hbm2ddl.auto 값이 update일 경우 table을 새로 생성하지 않는 문제 발생 시 default_schema 설정 필요 -->
+				<!--<prop key="hibernate.default_schema">streamdocs</prop>-->
+			</props>
+		</property>
+	</bean>
+
+<!--	<bean id="stopwatchAspect" class="com.epapyrus.pdf.sd.common.util.StopwatchAspect">-->
+<!--		<property name="period" value="5"/>-->
+<!--	</bean>-->
+<!--	<bean id="loggingAspect" class = "com.epapyrus.pdf.sd.common.util.LoggingAspect"/>-->
+<!--	<aop:aspectj-autoproxy />-->
+<!--	<aop:config>-->
+<!--		<aop:pointcut id="controllerPointCuts" expression="execution(* com.epapyrus.pdf.sd..*Controller..*(..))" />-->
+<!--		<aop:pointcut id="servicePointCuts" expression="execution(* com.epapyrus.pdf.sd..*Service..*(..))" />-->
+<!--		<aop:aspect id="paramLogger" ref="loggingAspect" >-->
+<!--			<aop:before method="log" pointcut-ref="servicePointCuts" />-->
+<!--		</aop:aspect>-->
+<!--		<aop:aspect id="elapsedTimeLogger" ref="stopwatchAspect" >-->
+<!--			<aop:around method="log" pointcut-ref="controllerPointCuts" />-->
+<!--		</aop:aspect>-->
+<!--	</aop:config>-->
+
+	<bean id="transactionManager"
+	      class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="addressFinder" class="com.epapyrus.common.util.address.KoreanOfficialAddressFinder"/>
+
+	<!-- v4 설정 파일 -->
+	<util:list id="streamdocsConfigList" value-type="java.lang.String">
+		<value>/config/clientProperties.json</value>
+		<value>/config/serverProperties.json</value>
+	</util:list>
+
+	<bean id="authenticationPropertiesPath" class="java.lang.String">
+		<constructor-arg value="/config/authenticationProperties.json" />
+	</bean>
+
+	<util:list id="streamdocsSchedule" value-type="java.lang.String">
+		<value>/config/schedule/cronJobProperties.json</value>
+	</util:list>
+
+	<util:list id="initializers" value-type="java.lang.String">
+		<value>com.epapyrus.pdf.sd.env.EnvironmentInitializer</value>
+		<value>com.epapyrus.pdf.sd.env.PdfioInitializer</value>
+	</util:list>
+	<!-- PdfResource의 toMapForOpen에서 포함하지 않을 속성들
+			name,id,parentDirPath,externalId,uri,cached,hash,streamdocsId,createdAt,givenName,secureId -->
+	<util:list id="pdfResourceTransientList" value-type="java.lang.String">
+		<value>name</value>
+		<value>id</value>
+		<value>parentDirPath</value>
+		<value>fullPath</value>
+		<!-- 		<value>externalId</value> -->
+		<value>uri</value>
+		<value>cached</value>
+		<value>hash</value>
+	</util:list>
+
+	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+	      id="bootProperties">
+		<property name="properties">
+			<props merge="true">
+				<prop key="file.encoding">utf-8</prop>
+				<prop key="com.epapyrus.common.environment.provider">com.epapyrus.common.spring.SpringEnvironment</prop>
+				<!-- BeanFactory로 사용될 클래스.
+				com.epapyrus.common.spring.SpringBeans
+				OR
+				com.epapyrus.common.lang.PropertiesBeanFactory -->
+				<prop key="com.epapyrus.common.lang.bean.factory.class">com.epapyrus.common.spring.SpringBeans</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="mappings" class="com.epapyrus.pdf.sd.env.PropertiesFixer">
+		<property name="properties" ref="siteProperties"/>
+		<property name="systemPropertiesMode" value="2"/>
+		<property name="fixers">
+			<list>
+				<bean class="com.epapyrus.pdf.sd.core.StreamDocsCoreContextFixer"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean name="fixedProps" factory-bean="mappings" factory-method="getFixedProperties" />
+  <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="bootstrapProperties">
+    <property name="propertiesArray">
+      <array>
+				<ref bean="fixedProps"/>
+				<util:properties>
+					<prop key="com.epapyrus.pdf.license.subkey.file.path">${com.epapyrus.pdf.license.file.dir}/subkey</prop>
+          <prop key="com.epapyrus.pdf.license.file.path">${com.epapyrus.pdf.license.file.dir}/streamdocs.lic</prop>
+					<prop key="com.epapyrus.pdf.deactivate.file.path">${com.epapyrus.pdf.license.file.dir}/deactivation</prop>
+					<!-- SD의 connectivity initial name -->
+					<!-- sd_cron_schedule 테이블의 Server_name컬럼에 이 설정값(com.epapyrus.sd.server.name)과 일치하는 cron 이 존재하는 경우 cron 작업이 수행된다.-->
+					<!-- Admin 에서 서버 등록시 사용된 서버명이 사용되어야 한다.-->
+					<prop key="com.epapyrus.sd.server.name">${com.epapyrus.sd.server.name}</prop>
+					<prop key="com.epapyrus.pdf.frontend.is.debug.mode">true</prop>
+					<!-- 현재 사용하지 않는 설정값 -->
+					<!-- ERROR > WARN > INFO > LOG > TRACE. js console 기준. -->
+<!--					<prop key="com.epapyrus.pdf.frontend.log.level">DEBUG</prop>-->
+        </util:properties>
+      </array>
+    </property>
+  </bean>
+
+	<bean id="addressFindingService" class="com.epapyrus.pdf.sd.address.KoreanOfficialAddressFindingService"/>
+
+	<util:map id="sftpAuthMap">
+		<description><![CDATA[
+		SFTP를 통해서 자료를 가져오는 경우에 정의한다.
+		java.net.URI.getAuthority() 값을 키값으로 조회한다.
+		example>
+			sftp://192.168.0.9/abc.txt
+ ]]></description>
+		<entry key="example.com">
+			<bean class="com.epapyrus.common.sftp.SSHUserPassSession">
+				<description>keyboard-interactive (user-password)</description>
+				<property name="host" value="example.com" />
+				<property name="port" value="22" />
+				<property name="userName" value="master"/>
+				<property name="password" value="master"/>
+				<property name="encoding" value="UTF-8"/>
+			</bean>
+		</entry>
+	</util:map>
+
+	<util:map id="ftpAuthMap">
+		<description><![CDATA[
+		FTP를 통해서 자료를 가져오는 경우에 정의한다.
+		java.net.URI.getAuthority() 값을 키값으로 조회한다.
+		example>
+		ftp://192.168.0.9/abc.txt
+ ]]></description>
+		<entry key="example.com">
+			<bean class="com.epapyrus.common.sftp.SSHUserPassSession">
+				<description>keyboard-interactive (user-password)</description>
+				<property name="host" value="example.com" />
+				<property name="port" value="21" />
+				<property name="userName" value="master"/>
+				<property name="password" value="master"/>
+				<property name="encoding" value="UTF-8"/>
+			</bean>
+		</entry>
+	</util:map>
+
+	<bean name="sftpAuthRepo" class="com.epapyrus.pdf.sd.core.repo.RemoteAuthRepoMapImpl">
+		<property name="authMap" ref="sftpAuthMap"/>
+		<property name="defaultPort" value="22" />
+	</bean>
+	<bean name="ftpAuthRepo" class="com.epapyrus.pdf.sd.core.repo.RemoteAuthRepoMapImpl">
+		<property name="authMap" ref="ftpAuthMap"/>
+		<property name="defaultPort" value="21" />
+	</bean>
+
+	<import resource="classpath:site-context.xml"/>
+
+  <beans>
+    <description>Config validators</description>
+    <bean name="fallBackFont" class="com.epapyrus.pdf.sd.core.env.validator.FallbackFontValidator"/>
+  </beans>
+
+</beans>

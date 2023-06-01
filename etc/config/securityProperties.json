@@ -1,0 +1,87 @@
+[
+  {
+	"description" : "TSA 모듈의 리눅스 운영체제 지원 여부",
+	"key" : "com.epapyrus.sd.tsa.supported.linux",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "TSA 모듈의 윈도우 운영체제 지원 여부",
+	"key" : "com.epapyrus.sd.tsa.supported.windows",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "TSA 사용 여부",
+	"key" : "com.epapyrus.sd.tsa.enabled",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "사용할 TSA 모듈",
+	"key" : "com.epapyrus.sd.tsa.module",
+	"value" : "dream",
+	"category" : "securityProperties",
+	"inputType" : "drop",
+	"setOn" : "S",
+	"regExp" : "amano|dream|http"
+  },
+  {
+	"description" : "문서 열람시 TSA 자동 검증 수행 여부",
+	"key" : "com.epapyrus.sd.tsa.validate.auto",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "PKI 모듈의 리눅스 운영체제 지원 여부",
+	"key" : "com.epapyrus.sd.pki.support.linux",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "PKI 모듈의 윈도우 운영체제 지원 여부",
+	"key" : "com.epapyrus.sd.pki.support.windows",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "PKI 사용 여부",
+	"key" : "com.epapyrus.sd.pki.enabled",
+	"value" : true,
+	"category" : "securityProperties",
+	"inputType" : "check",
+	"setOn" : "S"
+  },
+  {
+	"description" : "PKI 서명 모드",
+	"key" : "com.epapyrus.sd.pki.mode",
+	"value" : "TEXT",
+	"category" : "securityProperties",
+	"inputType" : "drop",
+	"setOn" : "S",
+	"regExp" : "TEXT|IMAGE|HIDDEN"
+  },
+  {
+	"description" : "사용할 PKI 모듈",
+	"key" : "com.epapyrus.sd.pki.module",
+	"value" : "crosscert",
+	"category" : "securityProperties",
+	"inputType" : "drop",
+	"setOn" : "S",
+	"regExp" : "crosscert|dream"
+  }
+]
+
+

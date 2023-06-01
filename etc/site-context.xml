@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+<!--	<bean id="documentUsageHistoryService" class="com.epapyrus.pdf.sd.history.EmptyDocumentUsageHistoryService"/>-->
+<!--	<bean id="pdfOpenLimitService" class="com.epapyrus.pdf.sd.doc.EmptyPdfOpenLimitService"/>-->
+<!--	<bean id="statisticsService" class="com.epapyrus.pdf.sd.statistics.EmptyStatisticsService"/>-->
+
+	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="siteProperties">
+		<property name="properties">
+			<props merge="true">
+				<prop key="com.epapyrus.pdf.init.config">true</prop>
+				<!-- 경로 설정 -->
+				<prop key="streamdocs.home">/ePapyrus/sd</prop>
+				<prop key="com.epapyrus.pdf.lib.dir">/ePapyrus/sd/bin</prop>
+				<prop key="com.epapyrus.pdf.lib.exec">pdfio</prop>
+				<prop key="com.epapyrus.pdf.license.file.dir">/ePapyrus/sd/license</prop>
+				
+				<!-- persistence-context.xml에서 BasicDataSource에 사용되는 값. -->
+        		<!-- DBMS 설정 -->
+				<prop key="driver.class.name">org.h2.Driver</prop>
+				<prop key="jdbc.url">jdbc:h2:file:/ePapyrus/sd/resources/h2/streamdocs;MV_STORE=FALSE;MVCC=true;LOCK_TIMEOUT=10000</prop>
+				<prop key="jdbc.username">master</prop>
+				<prop key="jdbc.password">master</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+        		<!-- cluster 관련 설정 -->
+				<prop key="com.epapyrus.sd.server.name">SERVER_NAME</prop>
+				<prop key="com.epapyrus.common.jvm.no">1</prop>
+
+        		<!-- MISC -->
+				<prop key="com.epapyrus.common.pdf.example.resources.location">/ePapyrus/sd/test-resources/sample-pdfs</prop>
+				<!-- ConcurrentJob을 수행하는 threadpool의 size. ConcurrencyChannelContext에서 값 사용. -->
+				<prop key="com.epapyrus.common.concurrent.channel.context.default.thread.pool.size">16</prop>
+        		<prop key="com.epapyrus.pdf.lib.fallback.font">NanumMyeongjo</prop>
+        		<prop key="com.epapyrus.pdf.lib.font.dir">/ePapyrus/sd/font</prop>
+        		<prop key="com.epapyrus.pdf.cmd.keepInputResource">false</prop>
+				<prop key="com.epapyrus.pdf.cmd.fallbackPdf">/ePapyrus/sd/res/default-fallback.pdf</prop>
+				<!-- 인코딩되지 않는 렌더링된 이미지 파일 추출 사용 여부 -->
+				<prop key="com.epapyrus.pdf.sd.rendering.image.origin.allow">false</prop>
+				<!-- PKI 서명 동시 삽입 방지를 위한 잠금 시간-->
+				<prop key="com.epapyrus.sd.sign.pki.locking.expired">60000</prop>
+				<!-- DAP 문서 다운로드(병합) 시 지정 옵션 [none|flatten-widget|delete-widget]-->
+				<prop key="com.epapyrus.sd.pdf.dap.merge.preprocess">none</prop>
+				<prop key="com.epapyrus.sd.module.workspace"></prop>
+
+<!-- 
+				  //  TODO 이것 필요한지 모르겠네.
+				  WAS별 default servlet name Tomcat : default Resin : resin-file Weblogic 
+    : FileServlet WebSphere : SimpleFileServlet jetty : default jboss : default 
+    jeus : WorkerServlet 외국 벤더 WAS인 경우에는 스프링이 자동으로 default-servlet-name을 지정하므로 
+    설정시 생략가능하나, Jeus같은 경우는 아래와 같이 수동으로 지정해 주어야 함. <mvc:default-servlet-handler 
+    default-servlet-name="WorkerServlet"/> -->
+<!-- 				<prop key="com.epapyrus.sd.defaultServletName"></prop> -->
+				<prop key="com.epapyrus.sd.env.view.preference.migration.query">SELECT n_key, n_value FROM sd_view_preference</prop>
+			</props>
+		</property>
+		<property name="locations">
+			<list>
+				<value>classpath:streamdocs.properties</value>
+				<value>file:/ePapyrus/etc/streamdocs/*.properties</value>
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="true" />
+	</bean>
+</beans>

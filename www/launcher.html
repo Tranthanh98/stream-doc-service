@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>StreamDocs</title>
+
+    <meta http-equiv="expires" content="-1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1" />
+    <style type="text/css">
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: block;
+        background: #E9EAED;
+        font-family: '맑은 고딕', 'Malgun Gothic', 나눔고딕, 돋움, Dotum, 굴림, Gulim, 'Apple SD Gothic Neo', sans-serif;
+      }
+
+      #main-window {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      #msg-frame {
+        width: 800px;
+        height: 400px;
+        display: none;
+      }
+
+      #msg-body {
+        margin-top: 48px;
+      }
+
+      #msg-body div {
+        margin: 5px;
+      }
+
+      #msg-frame a { color: black; }
+      #msg-frame a:link, #msg-frame a:visited, #msg-frame a:active { text-decoration: none; }
+      #msg-frame a:hover {text-decoration:underline;}
+
+      .main-loading-logo-img {
+        margin-bottom: 20px;
+      }
+      .main-loading-spinner {
+        margin: 0 auto;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        text-align: center;
+        animation: sk-rotate 2.0s infinite linear;
+      }
+
+      .dot1, .dot2 {
+        width: 60%;
+        height: 60%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        background-color: #FF6100;
+        border-radius: 100%;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+      }
+
+      .dot2 {
+        width: 60%;
+        height: 60%;
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        background-color: #F79F1A;
+        border-radius: 100%;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+      }
+
+      .dot2 {
+        top: auto;
+        bottom: 0;
+        animation-delay: -1.0s;
+      }
+
+      @keyframes sk-rotate { 100% { transform: rotate(360deg); }}
+      @keyframes sk-bounce {
+        0%, 100% {
+          transform: scale(0.0);
+        } 50% {
+          transform: scale(1.0);
+        }
+      }
+    </style>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <table id="main-window">
+      <tr>
+        <td valign="middle">
+          <div id="loader">
+            <img style="height: 24px; margin-bottom: 20px;" src="assets/images/logo.png">
+            <div class="main-loading-spinner">
+              <div class="dot1"></div>
+              <div class="dot2"></div>
+            </div>
+          </div>
+          <div id="msg-frame">
+            <img src="assets/images/logo.png" /><br />
+            <h2 id="msg-title"></h2>
+            <div id="msg-body"></div>
+            <a href="/streamdocs/v4/resources/sdagent-portable">[ 다운로드 ]</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <script type="text/javascript">
+      var lastAgentVersion = {
+        major: 11,
+        minor: 6,
+        patch: 0
+      };
+      var sdAgentEnableHTTPS = true;
+      var sdAgentHttpPorts = [ 13980, 23980, 33980 ];
+      var sdAgentHttpsPorts = [ 13981, 23981, 33981 ];
+      var papyrusModule = 'Default';
+
+      var sdAgentURLScheme = sdAgentEnableHTTPS ? 'https://' : 'http://';
+      var sdAgentURLPrefix = sdAgentURLScheme + '127.0.0.1:';
+
+      function noCacheUrl(url) {
+        if (typeof url !== 'string') { return; }
+        var randomStr = Math.random().toString(16).substring(2);
+        if (url.indexOf('?') < 0) { return url + '?_=' + randomStr; }
+        else { return url + '&_=' + randomStr; }
+      }
+
+      function reqAgent(reqUri, callback, param) {
+        var ports = sdAgentEnableHTTPS ? sdAgentHttpsPorts : sdAgentHttpPorts;
+        var availableCount = ports && ports.length;
+        if (!availableCount) { return; }
+
+        var uri = reqUri + '?callback=' + callback + '&Papyrus-Module=' + papyrusModule;
+        if (param) { uri += '&' + param; }
+        var headEl = document.getElementsByTagName('head')[0];
+
+        (function doReq() {
+          var imgEl = document.createElement('img');
+          imgEl.onload = function () {
+            imgEl = undefined;
+
+            var scEl = document.createElement('script');
+            scEl.type = "text/javascript";
+            scEl.src = noCacheUrl(sdAgentURLPrefix + ports[0] + uri);
+            headEl.appendChild(scEl);
+          };
+          imgEl.onerror = function () {
+            if (--availableCount > 0) {
+              ports.push(ports.shift());
+              setTimeout(doReq, 100);
+            } else {
+              agentNotInstalled();
+            }
+          };
+          imgEl.src = noCacheUrl(sdAgentURLPrefix + ports[0] + '/SDAgent/p-state');
+        })();
+      }
+
+      function getQueryStringValue(key) {
+        return decodeURIComponent(window.location.search.replace(new RegExp('^(?:.*[&\\?]' + encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&') + '(?:\\=([^&]*))?)?.*$', 'i'), '$1'));
+      }
+
+      function getIEVersion() {
+        var ua = navigator.userAgent;
+        var idx = ua.toLowerCase().indexOf('msie');
+
+        if (idx > 0) {
+          return parseInt(ua.substring(idx + 5, ua.indexOf('.', idx)), 10);
+        } else if (!!navigator.userAgent.match(/Trident\/7\./)) {
+          return 11;
+        } else {
+          return 0;
+        }
+      }
+
+      function agentVersionChecker(callbackName) {
+        return function(param) {
+          var verStr = param.responseText;
+          if (param.statusCode === 500 && verStr.indexOf('not installed') >= 0) {
+            pluginNotInstalled();
+            return;
+          }
+
+          var verArr = verStr.split(/[\s.]+/);
+          var currentVersion = { major: verArr[0], minor: verArr[1], patch: verArr[2] };
+          var verMismatch = false;
+
+          var majorMismatch = +currentVersion.major < +lastAgentVersion.major;
+          var minorMismatch = +currentVersion.major === +lastAgentVersion.major && +currentVersion.minor < +lastAgentVersion.minor;
+          var patchMismatch = +currentVersion.major === +lastAgentVersion.major && +currentVersion.minor === +lastAgentVersion.minor && +currentVersion.patch < +lastAgentVersion.patch;
+
+          if (majorMismatch || minorMismatch || patchMismatch) {
+            verMismatch = true;
+          }
+
+          if (verMismatch) {
+            agentVersionMismatch(
+              currentVersion.major + '.' + currentVersion.minor + '.' + currentVersion.patch,
+              lastAgentVersion.major + '.' + lastAgentVersion.minor + '.' + lastAgentVersion.patch
+            ); return;
+          }
+          if (typeof callbackName === 'function') { callbackName(); }
+        };
+      }
+
+      function showMsgBox() {
+        var loaderEl = document.getElementById('loader');
+        loaderEl.style.display = 'none';
+
+        var msgEl = document.getElementById('msg-frame');
+        msgEl.style.display = 'inline-block';
+      }
+
+      function agentNotInstalled() {
+        showMsgBox();
+
+        var msgTitle = document.getElementById('msg-title');
+        msgTitle.innerText = 'Agent 설치가 필요합니다';
+
+        var msgBody = document.getElementById('msg-body');
+        msgBody.innerHTML = '';
+
+        var agentDiv = document.createElement('div');
+        agentDiv.innerText = '사용중인 브라우저가 HTML5를 지원하지 않으므로, 문서열람을 하려면 Agent 설치가 필요합니다';
+        msgBody.appendChild(agentDiv);
+
+        var userAgentDiv = document.createElement('div');
+        userAgentDiv.innerText = navigator.userAgent;
+        userAgentDiv.style.color = '#808080';
+        msgBody.appendChild(userAgentDiv);
+
+        var br1 = document.createElement('br');
+        var br2 = document.createElement('br');
+        msgBody.appendChild(br1);
+        msgBody.appendChild(br2);
+
+        var installDiv = document.createElement('div');
+        installDiv.innerText = '아래 버튼을 눌러 Agent 설치 후 이용해주시기 바랍니다';
+        msgBody.appendChild(installDiv);
+      }
+
+      function pluginNotInstalled() {
+        showMsgBox();
+
+        var msgTitle = document.getElementById('msg-title');
+        msgTitle.innerText = '플러그인 설치가 필요합니다';
+
+        var msgBody = document.getElementById('msg-body');
+        msgBody.innerHTML = '';
+
+        var pluginDiv = document.createElement('div');
+        pluginDiv.innerText = '사용중인 브라우저가 HTML5를 지원하지 않으므로, 문서열람을 하려면 플러그인 설치가 필요합니다';
+        msgBody.appendChild(pluginDiv);
+
+        var userAgentDiv = document.createElement('div');
+        userAgentDiv.innerText = navigator.userAgent;
+        userAgentDiv.style.color = '#808080';
+        msgBody.appendChild(userAgentDiv);
+
+        var br1 = document.createElement('br');
+        var br2 = document.createElement('br');
+        msgBody.appendChild(br1);
+        msgBody.appendChild(br2);
+
+        var installDiv = document.createElement('div');
+        installDiv.innerText = '아래 버튼을 눌러 플러그인 설치 후 이용해주시기 바랍니다';
+        msgBody.appendChild(installDiv);
+      }
+
+      function agentVersionMismatch(current, required) {
+        showMsgBox();
+
+        var msgTitle = document.getElementById('msg-title');
+        msgTitle.innerText = 'Agent 버전이 업데이트 되었습니다';
+
+        var msgBody = document.getElementById('msg-body');
+        msgBody.innerHTML = '';
+
+        var currentVersionDiv = document.createElement('div');
+        currentVersionDiv.innerText = '현재 버전 : ' + current;
+        msgBody.appendChild(currentVersionDiv);
+
+        var requiredVersionDiv = document.createElement('div');
+        requiredVersionDiv.innerText = '최신 버전 : ' + required;
+        msgBody.appendChild(requiredVersionDiv);
+
+        var br1 = document.createElement('br');
+        var br2 = document.createElement('br');
+        msgBody.appendChild(br1);
+        msgBody.appendChild(br2);
+
+        var mismatchDiv = document.createElement('div');
+        mismatchDiv.innerText = '설치 된 Agent 버전이 요구사항에 맞지 않습니다';
+        msgBody.appendChild(mismatchDiv);
+
+        var updateDiv = document.createElement('div');
+        updateDiv.innerText = '아래 버튼을 눌러 새 버전으로 업데이트 해주시기 바랍니다';
+        msgBody.appendChild(updateDiv);
+
+        var br3 = document.createElement('br');
+        var br4 = document.createElement('br');
+        msgBody.appendChild(br3);
+        msgBody.appendChild(br4);
+      }
+
+      function launchPortable() {
+        reqAgent('/portable/executeNW', 'postLaunchPortable', 'url=' + encodeURIComponent(launchUrl));
+      }
+
+      function postLaunchPortable(param) {
+        var result = param.responseText;
+        result = result.substring(0, result.indexOf('\n'));
+        result = parseInt(result.substring(result.indexOf('#') + 1), 10);
+        if (result === -400) {
+          pluginNotInstalled();
+        }
+      }
+
+      var queryStartIdx = location.href.lastIndexOf('?');
+      var launchUrl = location.href.substring(0, location.href.lastIndexOf('/', queryStartIdx < 0 ? undefined : queryStartIdx));
+      var routeParam = getQueryStringValue('route');
+      if (routeParam.length > 0) { launchUrl += '/view/' + routeParam; }
+      if (navigator.platform === 'Win32' && getIEVersion() && getIEVersion() < 10) {
+        reqAgent('/version/info', 'agentVersionChecker(launchPortable)');
+      } else {
+        reqAgent('/version/info', 'agentVersionChecker(launchPortable)');
+        // location.replace(launchUrl);
+      }
+    </script>
+  </body>
+</html>

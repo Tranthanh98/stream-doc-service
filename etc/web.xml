@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--		xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="streamdocs">-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="streamdocs" version="2.5">
+	<display-name>StreamDocs</display-name>
+	
+<!--	<listener> -->
+<!--		<listener-class>com.epapyrus.common.http.context.CommonContextListener</listener-class> -->
+<!--	</listener> -->
+
+<!-- ============================================================================================ -->
+<!-- 성능 이슈 가 요구 되는 경우에 아래의 주석을 해제한다. RequestLogFilter 를 주석처리한다.  -->
+	<filter>
+		<filter-name>WebLogFilter</filter-name>
+		<filter-class>com.epapyrus.pdf.sd.restapi.filter.WebLogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>WebLogFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+<!-- ============================================================================================ -->
+	
+	<filter>
+		<filter-name>ASecureIdSwapFilter</filter-name>
+		<filter-class>com.epapyrus.pdf.sd.restapi.filter.SecureIdSwapFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ASecureIdSwapFilter</filter-name>
+		<url-pattern>/v4/documents/*</url-pattern>
+		<url-pattern>/v4/statistic/timezone/documents/*</url-pattern>
+	</filter-mapping>
+	
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>GzipFilter</filter-name>
+		<filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
+		<init-param>
+			<param-name>mimeTypes</param-name>
+			<param-value>
+				text/html,text/plain,text/xml,application/xhtml+xml,text/css,application/javascript,
+				text/json,application/json,image/svg+xml
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>useContinuation</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>suppressStackTraces</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>GzipFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring-context.xml
+			classpath:mvc-context.xml
+		</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+   
+	<listener>
+		<listener-class>com.epapyrus.pdf.sd.common.security.SessionCounterListener</listener-class>
+	</listener>
+  
+	<servlet>
+		<servlet-name>streamdocs-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>streamdocs-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<!--
+	<error-page>
+		<location>/error</location>
+	</error-page>
+	-->
+
+	<!-- 타 시스템 연계시 JSESSIONID 키 값이 충돌하여 문제가 발생하는 경우 -->
+	<!-- ex. Session Key 값이 충돌하여 연계하는 서비스의 자동 로그인이 해제되는 이슈.-->
+
+	<!-- 아래 주석을 해제하여 쿠키에 저장되는 Session Key 값을 SD_SESSIONID로 변경할 수 있습니다.-->
+	<!-- <cookie-config> 설정은 Servlet 3.0 버전 이상을 지원하는 WAS에서만 사용가능합니다. -->
+	<!-- 또한 해당 파일 상단 스키마 헤더의 Servlet 버전 역시 3.0 버전 이상으로 변경해야 합니다.-->
+<!--	<session-config>-->
+<!--		<cookie-config>-->
+<!--			<name>SD_SESSIONID</name>-->
+<!--		</cookie-config>-->
+<!--	</session-config>-->
+</web-app>

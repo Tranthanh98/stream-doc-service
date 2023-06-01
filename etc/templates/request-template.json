@@ -1,0 +1,16 @@
+{
+  "url": "http://192.168.0.181:9090/admin/echo",
+  "method": "POST",
+  "headers": {
+  	"Content-Type": "text/plain; charset=utf8",
+  	"{{authKey}}": "{{authValue}}",
+  	"Access-Level": "admin"
+  },
+  "parameters": {
+  },
+  "cookie": {
+  	"firstCookie": "첫쿠키",
+  	"secondCookie": "second-cookie"
+  },
+  "body": "이것은바디입니다"
+}

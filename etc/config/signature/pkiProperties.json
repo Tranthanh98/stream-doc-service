@@ -1,0 +1,35 @@
+{
+  "description": "PKI Sign Metadata",
+  "enable": false,
+  "enableType": "crosscert",
+  "signModes": "IMAGE|TEXT|NONE",
+  "certifications" : {
+	"cert1" : {
+	  "certPath": "C:/ePapyrus/sd/pki/crosscert/certs/cert1/signCert.der",
+	  "keyPath": "C:/ePapyrus/sd/pki/crosscert/certs/cert1/signPri.key",
+	  "password":"crosscert12!@"
+	}
+  },
+  "crosscert": {
+	"description": "Crossert PKI Sign setting information",
+	"licensePath": "C:/ePapyrus/sd/pki/crosscert/UStoolkit_lic.key",
+	"firewallOutbounds":[
+	  {"name": "한국전자인증", "url": "dir.crosscert.com", "port": 389},
+	  {"name": "한국정보인증", "url": "ldap.signgate.com", "port": 389},
+	  {"name": "한국증권전산", "url": "dir.signkorea.com", "port": 389},
+	  {"name": "금융결제원", "url": "ds.yessign.or.kr", "port": 389},
+	  {"name": "한국무역정보통신", "url": "ldap.tradesign.net", "port": 389}
+	]
+  },
+  "dream": {
+	"description": "DreamSecurity PKI Sign setting information",
+	"magicLinePropertiesPath": "C:/ePapyrus/sd/pki/dream/"
+  },
+  "http": {
+	"description": "DefaultHttp TSA Sign setting information",
+	"signUrl": "http://localhost:8899/pki/v1/sign-value",
+	"validationUrl": "http://localhost:8899/pki/v1/validation",
+	"certificationInfoUrl" : "http://localhost:8899/pki/v1/certification-info",
+	"charset": "UTF-8"
+  }
+}

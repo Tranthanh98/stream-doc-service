@@ -1,0 +1,16 @@
+[
+  {
+    "alias": "example-account",
+    "hostname": "localhost",
+    "port": 9000,
+    "user": "exmaple",
+    "password": "example-password"
+  }, 
+  {
+    "alias": "example-cert",
+    "hostname": "localhost",
+    "port": 9000,
+    "user": "exmaple",
+    "certLocation": "/ePapyrus/sd/resources/certs/example.pks"
+  }
+]

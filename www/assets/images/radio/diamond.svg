@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Diamond</title>
+    <defs>
+        <polygon id="path-1" points="0 0 14 0 14 14 0 14"></polygon>
+    </defs>
+    <g id="😄PC-SYMBOL😄" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="폼-속성_단추,-상자-스타일_구성" transform="translate(-143.000000, -357.000000)">
+            <g id="Diamond" transform="translate(144.000000, 358.000000)">
+                <circle id="Oval" stroke="#363636" stroke-width="2" cx="12" cy="12" r="12"></circle>
+                <g id="Group-3" transform="translate(5.000000, 5.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M6.05601475,13.6087869 L0.391213123,7.94420778 C-0.130404374,7.42259028 -0.130404374,6.57718718 0.391213123,6.05579222 L6.05601475,0.391213123 C6.57740972,-0.130404374 7.42281282,-0.130404374 7.94398525,0.391213123 L13.6087869,6.05579222 C14.1304044,6.57718718 14.1304044,7.42259028 13.6087869,7.94420778 L7.94398525,13.6087869 C7.42281282,14.1304044 6.57740972,14.1304044 6.05601475,13.6087869" id="Fill-1" fill="#363636" mask="url(#mask-2)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>StreamDocs API Adapter Sample</title>
+    <style>
+      * {
+        font-family: Malgun Gothic, sans-serif;
+      }
+
+      html {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+
+        flex-direction: column;
+
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      #toolbar {
+        width: calc(100% - 16px);
+        margin: 8px;
+      }
+
+      #viewer {
+        flex: 1 1 auto;
+
+        width: calc(100% - 20px);
+        margin: 8px;
+        border: 2px solid #000000;
+      }
+
+      form {
+        display: inline-block;
+
+        margin: 0px;
+        padding: 8px;
+        border: 2px solid #000000;
+        box-sizing: border-box;
+      }
+
+      form + form {
+        margin-top: 16px;
+      }
+
+      form .title {
+        display: block;
+
+        margin-bottom: 16px;
+
+        font-size: 24px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="toolbar">
+      <h3 style="margin: 0px">StreamDocs Frontend API 및 이벤트에 대한 자세한 정보는 <a href="https://technet.epapyrus.com">ePapyrus Tech Net</a>을 참조하세요.</h3>
+      <form onsubmit="openDocument(resolveFormValues(event.target)); return false">
+        <span class="title">문서 열람</span>
+        <input name="streamdocsId" type="text" placeholder="StreamDocs ID" style="width: 400px" />
+        <input type="submit" value="열람" />
+        <input type="button" value="종료" onclick="closeDocument()" />
+      </form>
+      <form onsubmit="addStreamDocsEventListener(resolveFormValues(event.target)); return false">
+        <span class="title">이벤트 리스너 등록</span>
+        <select name="eventName">
+          <option value="annotationToolChange">annotationToolChange</option>
+          <option value="currentPageIndexChange">currentPageIndexChange</option>
+          <option value="currentReadingPageChange">currentReadingPageChange</option>
+          <option value="documentDownload">documentDownload</option>
+          <option value="dragToolChange">dragToolChange</option>
+          <option value="keydown">keydown</option>
+          <option value="keyup">keyup</option>
+          <option value="scaleChange">scaleChange</option>
+          <option value="scrollPositionChange">scrollPositionChange</option>
+          <option value="sideViewClose">sideViewClose</option>
+          <option value="sideViewOpen">sideViewOpen</option>
+          <option value="widgetMousedown">widgetMousedown</option>
+        </select>
+        <input type="submit" value="등록" />
+      </form>
+      <form onsubmit="setViewerScale(resolveFormValues(event.target)); return false">
+        <span class="title">뷰어 배율값 설정</span>
+        <input type="number" name="scale" min="30" max="400" placeholder="배율값 입력" style="width: 100px" />
+        <input type="submit" value="설정" />
+        <input type="button" value="현재값 읽기" onclick="getViewerScale()" />
+      </form>
+      <form onsubmit="setViewerDegree(resolveFormValues(event.target)); return false">
+        <span class="title">뷰어 회전</span>
+        <select name="degree">
+          <option value="0">0</option>
+          <option value="90">90</option>
+          <option value="180">180</option>
+          <option value="270">270</option>
+        </select>
+        <input type="submit" value="회전" />
+        <input type="button" value="현재값 읽기" onclick="getViewerDegree()" />
+      </form>
+      <form onsubmit="setViewerDragTool(resolveFormValues(event.target)); return false">
+        <span class="title">뷰어 드래그 모드 변경</span>
+        <select name="tool">
+          <option value="MAGNIFY">확대</option>
+          <option value="SELECT_ANNOTATION">주석 선택</option>
+          <option value="SELECT_TEXT">텍스트 선택</option>
+          <option value="PAN">스크롤</option>
+        </select>
+        <input type="submit" value="변경" />
+      </form>
+      <form onsubmit="listAcroForm(); return false">
+        <span class="title">필드 목록 조회</span>
+        <input type="submit" value="실행" />
+      </form>
+      <form onsubmit="setAcroFormAttributes(resolveFormValues(event.target)); return false">
+        <span class="title">필드 속성값 설정</span>
+        <input type="text" name="title" placeholder="필드 타이틀 입력" style="width: 150px" />
+        <input type="text" name="value" placeholder="필드 값 입력" style="width: 150px" />
+        <input type="checkbox" name="readOnly" />
+        <span>읽기 전용</span>
+        <input type="checkbox" name="required" />
+        <span>필수 항목</span>
+        <input type="submit" value="설정" />
+      </form>
+      <form onsubmit="setSignatureAttributes(resolveFormValues(event.target)); return false">
+        <span class="title">서명필드 속성값 설정</span>
+        <input type="text" name="title" placeholder="필드 타이틀 입력" style="width: 150px" />
+        <input type="checkbox" name="readOnly" />
+        <span>읽기 전용</span>
+        <input type="checkbox" name="required" />
+        <span>필수 항목</span>
+        <input type="submit" value="설정" />
+      </form>
+      <form onsubmit="listAnnotation(resolveFormValues(event.target)); return false">
+        <span class="title">주석 목록 조회</span>
+        <input type="number" name="pageIndex" min="0" placeholder="페이지 인덱스 입력" style="width: 130px" />
+        <input type="submit" value="실행" />
+      </form>
+      <form onsubmit="setAnnotationAttributes(resolveFormValues(event.target)); return false">
+        <span class="title">주석 속성값 설정</span>
+        <input type="number" name="pageIndex" min="0" placeholder="페이지 인덱스 입력" style="width: 130px" />
+        <input type="number" name="oid" placeholder="주석 oid 입력" style="width: 130px" />
+        <input type="checkbox" name="locked" />
+        <span>잠금</span>
+        <input type="submit" value="설정" />
+      </form>
+      <form onsubmit="getSignatureImage(resolveFormValues(event.target)); return false">
+        <span class="title">서명 필드 이미지 조회</span>
+        <input type="text" name="title" placeholder="서명 필드 타이틀 입력" style="width: 150px" />
+        <input type="submit" value="실행" />
+      </form>
+      <form onsubmit="setSignatureImage(resolveFormValues(event.target)); return false">
+        <span class="title">서명 필드 이미지 입력</span>
+        <input type="text" name="title" placeholder="서명 필드 타이틀 입력" style="width: 150px" />
+        <input type="text" name="url" placeholder="이미지 URL 입력" style="width: 100px" />
+        <input type="submit" value="실행" />
+      </form>
+      <form onsubmit="setViewVisibility(resolveFormValues(event.target)); return false">
+        <span class="title">뷰어 UI 숨김/보임 처리</span>
+        <select name="view">
+          <option value="TOOLBAR.SAVE">저장</option>
+          <option value="TOOLBAR.DRAG_MODE.SELECT_ANNOTATION">주석 선택 모드</option>
+          <option value="TOOLBAR.ANNOTATION">주석 도구</option>
+          <option value="TOOLBAR.FORM">폼 도구</option>
+          <option value="SIDE_VIEW.ANNOTATION">좌측 주석 목록 뷰</option>
+          <option value="SIDE_VIEW.FORM">좌측 폼 목록 뷰</option>
+        </select>
+        <input type="checkbox" name="visibility" checked />
+        <span>보임</span>
+        <input type="submit" value="실행" />
+      </form>
+    </header>
+    <iframe
+      id="viewer"
+      src="/streamdocs/view/sd"
+    ></iframe>
+    <script src="/streamdocs/adapter.js"></script>
+  </body>
+  <script>
+    var viewerElement = document.getElementById('viewer');
+    var streamdocs = new StreamDocs({ element: viewerElement });
+    var listeners = {};
+
+    function openDocument(form) {
+      return streamdocs.document.open({ streamdocsId: form.streamdocsId })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function closeDocument() {
+      return streamdocs.document.close()
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function addStreamDocsEventListener(form) {
+      streamdocs.addEventListener(form.eventName, function(event) { console.log('"' + form.eventName + '" event occurred.', event) });
+      console.log('event listener for "' + form.eventName + '" event registered.');
+    }
+
+    function setViewerScale(form) {
+      return streamdocs.viewer.setScale({ scale: Number(form.scale) })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function getViewerScale() {
+      return streamdocs.viewer.getScale()
+        .then(function(data) {
+          alert('현재 배율값: ' + data.scale);
+        })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setViewerDegree(form) {
+      return streamdocs.viewer.setDegree({ degree: Number(form.degree) })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function getViewerDegree() {
+      return streamdocs.viewer.getDegree()
+        .then(function(data) {
+          alert('현재 회전값: ' + data.degree);
+        })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setViewerDragTool(form) {
+      return streamdocs.viewer.setDragTool({ tool: form.tool })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function listAcroForm() {
+      return streamdocs.acroForm.list()
+        .then(function(data) {
+          console.log('필드 목록:', data);
+          alert('개발자 도구의 로그를 확인하세요.');
+        })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setAcroFormAttributes(form) {
+      return streamdocs.acroForm.setAttributes({ title: form.title, value: form.value, readOnly: form.readOnly, required: form.required })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setSignatureAttributes(form) {
+      return streamdocs.acroForm.setAttributes({ title: form.title, readOnly: form.readOnly, required: form.required })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function listAnnotation(form) {
+      return streamdocs.annotation.list({ pageIndex: Number(form.pageIndex) })
+        .then(function(data) {
+          console.log('주석 목록:', data);
+          alert('개발자 도구의 로그를 확인하세요.');
+        })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setAnnotationAttributes(form) {
+      return streamdocs.annotation.setAttributes({ pageIndex: Number(form.pageIndex), oid: Number(form.oid), locked: form.locked })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function getSignatureImage(form) {
+      return streamdocs.signature.getImage({ title: form.title })
+        .then(function(data) {
+          console.log('이미지 데이터:', data);
+          alert('개발자 도구의 로그를 확인하세요.');
+        })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setSignatureImage(form) {
+      return streamdocs.signature.setImage({ title: form.title, url: form.url })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    function setViewVisibility(form) {
+      return streamdocs.viewer.setViewVisibility({ view: form.view, visibility: form.visibility })
+        .catch(function(error) {
+          alert('오류 발생! 개발자 도구의 로그를 확인하세요.');
+          console.error('Error name:', error.name);
+          console.error('Error message:', error.message);
+        });
+    }
+
+    // Utils
+    function resolveFormValues(form) {
+      return Object.keys(form.elements)
+        .reduce(
+          function(acc, key) {
+            if (form.elements[key].type === 'checkbox') {
+              acc[key] = form.elements[key].checked;
+            } else {
+              acc[key] = form.elements[key].value;
+            }
+
+            return acc;
+          },
+          {});
+    }
+  </script>
+</html>

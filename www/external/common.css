@@ -1,0 +1,19 @@
+body, html {
+	height: calc(100% - 110px);
+	width: 99%;
+}
+
+.menu {
+	width: 1500px;
+	height: 30px;
+}
+
+.ePapyrus {
+	width: 170px;
+	padding: 6px 20px 5px 20px;
+	background-color: #4F6DB6;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	font-family: Dotum, Gullim, Verdana, Tahoma
+}

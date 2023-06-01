@@ -1,0 +1,762 @@
+[
+	{
+		"key": "com.epapyrus.pdf.common.event.caching.range.mode",
+		"value": "none",
+		"description": "PdfResource 등록시 caching range 설정",
+		"category": "applicationProperties",
+		"inputType": "drop",
+		"setOn": "S",
+		"regExp": "none|all|major|quick"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.format",
+		"value": "png",
+		"description": "Page Rendering Image 추출시 Image Format",
+		"category": "applicationProperties",
+		"inputType": "drop",
+		"setOn": "S",
+		"regExp": "png|jpg-h|jpg-s"
+	},
+	{
+		"key": "com.epapyrus.pdf.thumbnail.image.format",
+		"value": "jpg",
+		"description": "Page Thumbnail Image 추출시 Image Format",
+		"category": "applicationProperties",
+		"inputType": "drop",
+		"setOn": "S",
+		"regExp": "jpg|png|jpg-h|jpg-s"
+	},
+	{
+		"key": "com.epapyrus.pdf.welcome.page.path",
+		"value": "/index.html",
+		"description": "welcome page",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.postinstall.check.file.path",
+		"value": "./sample.pdf",
+		"description": "설치 후 정상 동작 확인 시 사용할 샘플 PDF 파일 위치",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdfv.default.timeout.period",
+		"value": "30m",
+		"description": "cmd timeout 값. Time Unit : H|m|s|S = 시|분|초|밀리초",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.use.secure.id",
+		"value": true,
+		"description": "secureId 사용 여부",
+		"category": "applicationProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.auth.session.access.timeout",
+		"value": "1H",
+		"description": "JWT Access Token의 만료시간의  default값(ex: 1y2M3w4d5H6m7s8S는 1년2개월3주4일5시간6분7초8밀리초)",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"example": "1y2M3w4d5H6m7s8S"
+	},
+	{
+		"key": "com.epapyrus.pdf.auth.session.access.overtime",
+		"value": "10s",
+		"description": "JWT Access Token 인증시 허용 초과 시간(ex: 1y2M3w4d5H6m7s8S는 1년2개월3주4일5시간6분7초8밀리초)",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"example": "1y2M3w4d5H6m7s8S"
+	},
+	{
+		"key": "com.epapyrus.pdf.auth.session.refresh.timeout",
+		"value": "12H",
+		"description": "JWT Refresh Token의 만료시간의  default값(ex: 1y2M3w4d5H6m7s8S는 1년2개월3주4일5시간6분7초8밀리초)",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"example": "1y2M3w4d5H6m7s8S"
+	},
+	{
+		"key": "com.epapyrus.pdf.auth.session.redirect.url",
+		"value": "/v4/auth/signin",
+		"description": "authentication에 문제가 생겼을때 redirect 되는 페이지",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"example": "/v4/auth/signin"
+	},
+	{
+		"key": "com.epapyrus.pdf.document.list.pagination.max.result.per.page",
+		"value": "100",
+		"description": "pagination으로 문서목록 조회시 페이지당 문서 개수",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.license.server.url",
+		"value": "http://license.epapyrus.com",
+		"description": "라이센스 발급을 위한 라이센스 서버의 url",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"secret": true
+	},
+	{
+		"key": "com.epapyrus.pdf.qrcode.page.template.location",
+		"value": "classpath:/templates/qrcode-template.mustache",
+		"description": "라이센스 발급 경로를 나타내는 qrcode 이미지를 보여주는 html페이지 템플릿 위치",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"secret": true
+	},
+	{
+		"key": "com.epapyrus.pdf.license.registration.page.template.location",
+		"value": "classpath:/templates/license-registration-template.mustache",
+		"description": "라이센스 발급을 위한 정보를 입력하는 html페이지 템플릿 위치",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"secret": true
+	},
+	{
+		"key": "com.epapyrus.pdf.use.acl.filter",
+		"value": false,
+		"description": "AclFilter 사용 여부",
+		"category": "applicationProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.temp.resource.expiration.period",
+		"value": "3d",
+		"description": "temporary 파일의 삭제 단위 - default unit: day (ex: 1y2M3w4d5H6m7s8S는 1년2개월3주4일5시간6분7초8밀리초)",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"example": "1y2M3w4d5H6m7s8S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.document.default.lifespan",
+		"value": "100y",
+		"description": "문서의 수명주기의 default값(ex: 1y2M3w4d5H6m7s8S는 1년2개월3주4일5시간6분7초8밀리초)",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S",
+		"example": "1y2M3w4d5H6m7s8S"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdf.resource.expiration.reference.point",
+		"value": "CreatedAt",
+		"description": "pdfResourceRemover 파일삭제 기준 시간 (e.g. CreatedAt, UpdatedAt, LastAccessedAt)",
+		"category": "applicationProperties",
+		"inputType": "drop",
+		"setOn": "S",
+		"regExp": "CreatedAt|UpdatedAt|LastAccessedAt"
+	},
+	{
+		"key": "com.epapyrus.common.j2ee.session.timeout",
+		"value": "1h",
+		"description": "j2ee session timeout",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.signin.page.template.location",
+		"value": "classpath:/templates/signin-template.mustache",
+		"description": "AuthController의 login form page 템플릿",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.user.list.location",
+		"value": "classpath:/config/user-list.json",
+		"description": "유저정보 json",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.common.event.repair.page.description",
+		"value": true,
+		"description": "추가 설정(추후 변경 필요)",
+		"category": "applicationProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.skip.compare.resource.hash.when.modified",
+		"value": true,
+		"description": "resource 변경 시 hash값 체크 skip 여부",
+		"category": "applicationProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.minWidth",
+		"value": "0",
+		"description": "렌더링 이미지 최소 가로 사이즈",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.minHeight",
+		"value": "0",
+		"description": "렌더링 이미지 최소 세로 사이즈",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.maxWidth",
+		"value": "4096",
+		"description": "렌더링 이미지 최대 가로 사이즈",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.maxHeight",
+		"value": "4096",
+		"description": "렌더링 이미지 최대 세로 사이즈",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.zoomMultiplier",
+		"value": "1",
+		"description": "렌더링 이미지 확대 비율",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.base.resolution",
+		"value": "FULL_HD_PORTRAIT",
+		"description": "렌더링 이미지 품질 기준",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.base.resolution.weight",
+		"value": "1",
+		"description": "렌더링 이미지 품질 기준의 가중치.1이면 표준대로, 1.1이면 표준보다 1.1 높은 해상도, 0.9면 표준보다 0.9 낮은 해상도",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.above.a4.resolution.penalty",
+		"value": "1",
+		"description": "A4보다 큰 문서의 해상도 페널티.0~1 사이의 값.0에 가까울 수록 페널티가 적고 1에 가까울 수록 페널티가 급격히 커진다.1 이라 하더라도 기준해상도(A4 용지) 사이즈 이하로 줄지는 않는다.",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.default.printer.dpi",
+		"value": "300",
+		"description": "인쇄용 이미지 렌더링시 Printer의 dpi",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.rendering.image.default.printer.paper.spec",
+		"value": "A4",
+		"description": "인쇄용 이미지 렌더링시 기준 인쇄 용지 크기",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.text.translation.enable",
+		"value": false,
+		"description": "번역 기능 api 사용 여부",
+		"category": "applicationProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.text.translation.url",
+		"value": "https://api.llsollu.com/v1/translation",
+		"description": "번역 api url",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.text.translation.apiKey",
+		"value": "55afe05c-3043-41c0-872a-5f44d1f131ea",
+		"description": "번역 api-key",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.check.document.password",
+		"value": "true",
+		"description": "문서등록시 패스워드 적용된 문서인지 체크하는 옵션",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.resource.path.prefix",
+		"value": "/ePapyrus/sd",
+		"description": "FileSystem상에 위치한 Pdf 등록시 Restful로 넘어오는 상대경로는 이 디렉토리의 하위디렉토리를 나타내게 된다.(Path Traversal Vulnerability 보안 위협제거용)",
+		"category": "applicationProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.ftp.default.encoding",
+		"value": "UTF-8",
+		"description" :"FTP 서버 기본 인코딩 charset",
+		"category" : "applicationProperties",
+		"inputType" : "string",
+		"setOn" : "S"
+	}
+,
+	{
+		"key": "com.epapyrus.pdf.tts.server.ip",
+		"value": "192.168.0.10",
+		"description": "tts server의 IP",
+		"category": "customProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.tts.server.port",
+		"value": "7000",
+		"description": "tts server의 PORT",
+		"category": "customProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.tts.speaker.id",
+		"value": "10",
+		"description": "tts 음성 종류 ID",
+		"category": "customProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.tts.voice.format",
+		"value": "1",
+		"description": "tts fromat 종류",
+		"category": "customProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdfio.error.backup",
+		"value": "/ePapyrus/sd/resources/pdfio_error_backup",
+		"description": "pdfio command가 실패할시 해당내용 backup 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.cache.root.dir",
+		"value": "/ePapyrus/sd/resources/cache",
+		"description": "cacheFile 저장 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.resource.root.dir",
+		"value": "/ePapyrus/sd/resources/default",
+		"description": "resource파일 저장 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.watermark.cache.root.dir",
+		"value": "/ePapyrus/sd/resources/cache-watermark",
+		"description": "screen watermark 생성을 위한 cache 파일 저장 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.external.resources.path",
+		"value": "assets/images",
+		"description": "ResourceController의 downloadExternalImage메서드 에서 사용되는 값.",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.screen.watermark.image.path",
+		"value": "assets/images/btn-homemenu-on.svg",
+		"description": "WatermarkController에서 사용되는 값.",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.screen.watermark.text.path",
+		"value": "default.text.watermark.json",
+		"description": "WatermarkController에서 사용되는 값.",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.jwt.encryption.secret.key.path",
+		"value": "/ePapyrus/sd/bin/streamdocs.sk",
+		"description": "secure 사용시 key 파일 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.init.resources.dir",
+		"value": "/ePapyrus/sd/test-resources/sample-pdfs",
+		"description": "Batch 실행 시 등록되는 pdf파일 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.command.log.dir",
+		"value": "/ePapyrus/sd/log/cmd",
+		"description": "pdfio command log 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.lib.font.available.list.path",
+		"value": "/ePapyrus/sd/resources/default/available-font-list.json",
+		"description": "PDFIO 의 자동 생성 가용 서체 목록 파일 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.env.connectivity.certs.path",
+		"value": "/ePapyrus/sd/resources/certs",
+		"description": "접속정보 추가시 인증서가 위치하는 절대 경로",
+		"category": "localPathProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.is.debug.mode",
+		"value": false,
+		"description": "Mail Session DebugMode",
+		"category": "mailProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.username",
+		"value": "automate.test.here@test.smtp.server",
+		"description": "메일 발송용 Gmail 계정정보",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.password",
+		"value": "xptmxmgkwk",
+		"description": "메일 발송용 Gmail 비밀번호",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.from.address",
+		"value": "TestAutomation <develop@gmail.com>",
+		"description": "메일 공유 시 보낸사람",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.reply.to",
+		"value": "TestAutomation <develop@gmail.com>",
+		"description": "메일 공유시 답장 받을 주소",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.host",
+		"value": "smtp.gmail.com",
+		"description": "발신메일(SMTP)서버 주소",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.port",
+		"value": "465",
+		"description": "발신메일(SMTP) 포트",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.auth",
+		"value": true,
+		"description": "발신메일(SMTP) 보안설정",
+		"category": "mailProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.ssl.enable",
+		"value": true,
+		"description": "발신메일(SMTP) SSL 설정",
+		"category": "mailProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.starttls.enable",
+		"value": true,
+		"description": "발신메일(SMTP)서버 주소, 포트 및 보안설정",
+		"category": "mailProperties",
+		"inputType": "check",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.integration.smtp.rendering.page.template.location",
+		"value": "classpath:/templates/mail-template.mustache",
+		"description": "이메일 전송시 내용으로 사용될 템플릿",
+		"category": "mailProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sdAgent.exec",
+		"value": "sdAgent.exe",
+		"description": "프린트 모듈 실행 파일명",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.sdAgent.dir",
+		"value": "resource",
+		"description": "프린트 모듈 파일 경로",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.download.resource.dir.type",
+		"value": "filesystem",
+		"description": "[filesystem | web-context | classpath]",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.download.resource.dir",
+		"value": "/ePapyrus/sd/res",
+		"description": "ResourceController에서 사용하는 print-plugin과 sdagent가 있는 경로. Was Context Path로 부터 상대경로를 표기",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.modern.path",
+		"value": "SdAgent4Modern.exe",
+		"description": "Html5 지원하는 현대식 브라우저일 때 내려받게 되는 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.modern.name",
+		"value": "SdAgent4Modern.exe",
+		"description": "Html5 지원하는 현대식 브라우저일 때 내려받게 되는 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.classic.path",
+		"value": "SdAgent4Classic.exe",
+		"description": "Html5를 지원하지 않는 현대식 브라우저일 때 내려받게 되는 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.classic.name",
+		"value": "SdAgent4Classic.exe",
+		"description": "Html5를 지원하지 않는 현대식 브라우저일 때 내려받게 되는 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.antique.path",
+		"value": "SdAgent4Antique.exe",
+		"description": "xp와 같은 골동품 운영체제 일 때 내려받게 되는 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.antique.name",
+		"value": "SdAgent4Antique.exe",
+		"description": "xp와 같은 골동품 운영체제 일 때 내려받게 되는 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.portable.path",
+		"value": "SdAgent4Portable.exe",
+		"description": "NWjs 뷰어가 포함된 프린트 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.static.resource.sdagent.portable.name",
+		"value": "SdAgent4Portable.exe",
+		"description": "NWjs 뷰어가 포함된 프린트 SdAgent",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdfio.maxRetry",
+		"value": 2,
+		"description": "pdfio 자동 재시도 최대 수행 횟수",
+		"category": "moduleProperties",
+		"inputType": "number",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdfier.maxRetry",
+		"value": 2,
+		"description": "pdfier 자동 재시도 최대 수행 횟수",
+		"category": "moduleProperties",
+		"inputType": "number",
+		"setOn": "M"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdfio.maxRetry.codes",
+		"value": "[-216, -215, -15]",
+		"description":
+			"재시도 할 pdfio ErrorCode. \n web, pdfio disk 싱크 문제 발생시 재시도함, -215, -15",
+		"setOn": "C",
+		"inputType": "string",
+		"category": "moduleProperties"
+	},
+	{
+		"key": "com.epapyrus.pdf.pdfier.maxRetry.codes",
+		"value": "[105021]",
+		"description": "재시도 할 pdfier ErrorCode",
+		"setOn": "C",
+		"inputType": "string",
+		"category": "moduleProperties"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.vu.conv.enable",
+		"value": false,
+		"description": "StreamDocs Vu! 변환 기능 사용 여부",
+		"category" : "applicationProperties",
+		"inputType" : "string",
+		"setOn" : "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.conv.vu.origin.save",
+		"value": true,
+		"description": "StreamDocs Vu! 이용 시 원본 파일 저장 여부",
+		"category" : "applicationProperties",
+		"inputType" : "check",
+		"setOn" : "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.vu.converter.pool.size",
+		"value": "8",
+		"description": "StreamDocs Vu! 이용 시 동시 변환 프로세스 수",
+		"category" : "applicationProperties",
+		"inputType" : "string",
+		"setOn" : "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.sd.vu.converter.conversion.timeout",
+		"value": "10",
+		"description": "StreamDocs Vu! 변환 기능 이용 시 변환 분단위 timeout",
+		"category" : "applicationProperties",
+		"inputType" : "string",
+		"setOn" : "S"
+	},
+	{
+	  "key": "com.epapyrus.pdf.sd.vu.conv.module.type",
+	  "value": "combined",
+	  "description": "StreamDocs Vu! 기능 사용 시 변환 모듈",
+	  "category" : "applicationProperties",
+	  "inputType" : "drop",
+	  "setOn" : "S",
+	  "regExp": "smartoffice|polaris|combined"
+	},
+	{
+	  "key": "com.epapyrus.pdf.conv.smartoffice.module.path",
+	  "value": "/ePapyrus/sd/artifex/topdf.exe",
+	  "description": "StreamDocs Vu! 기능 사용 시 smartoffice converter module 절대 경로",
+	  "category": "moduleProperties",
+	  "inputType": "string",
+	  "setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.conv.polaris.module.path",
+		"value": "/ePapyrus/sd/poclib/PolarisConverter8.jar",
+		"description": "StreamDocs Vu! 기능 사용 시 polaris converter module 절대 경로",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.conv.libre.module.path",
+		"value": "/ePapyrus/sd/bin/lijamong-wrapper.sh",
+		"description": "StreamDocs Vu! 기능 사용 시 libre converter module 절대 경로",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.conv.jayoo.module.path",
+		"value": "/ePapyrus/sd/bin/lijamong-wrapper.sh",
+		"description": "StreamDocs Vu! 기능 사용 시 jayoo converter module 절대 경로",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "S"
+	},
+	{
+		"key": "com.epapyrus.pdf.conv.polaris.java.path",
+		"value": "java",
+		"description": "StreamDocs Vu! 기능 사용 시 Polaris converter module을 실행 할 java.exe 절대 경로(java 인 경우 환경 변수 설정된 java)",
+		"category": "moduleProperties",
+		"inputType": "string",
+		"setOn": "S"
+	}
+]

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="16px" viewBox="0 0 90 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>ico/Annotation/Line/Open arrow(reverse)</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ico/Annotation/Line/Open-arrow(reverse)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8.57873396,7 L89,7 C89.5522847,7 90,7.44771525 90,8 C90,8.55228475 89.5522847,9 89,9 L8.57923729,9 L2.08189995,12.8984024 C1.74362542,13.1013671 1.30486431,12.9916768 1.10189959,12.6534023 C0.898934875,12.3151278 1.00862515,11.8763667 1.34689968,11.673402 L7.46898462,8.000151 L1.34689968,4.32690003 C1.00862515,4.12393532 0.898934875,3.68517421 1.10189959,3.34689968 C1.30486431,3.00862515 1.74362542,2.89893487 2.08189995,3.10189959 L8.57873396,7 Z" id="Combined-Shape" fill="#222222"></path>
+    </g>
+</svg>

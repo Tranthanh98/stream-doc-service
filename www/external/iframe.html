@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>PDF 뷰어</title>
+		<script type="text/javascript" src="./jquery-1.9.1.min.js"></script>
+		<link type="text/css" rel="stylesheet" media="screen" href='./common.css'/>
+	</head>
+	<body>
+
+		<div>
+			<div class="menu">
+				<button class="ePapyrus" id="saveDoc">저장</button>
+				<button class="ePapyrus" id="downloadDoc">문서다운로드</button>
+				<button class="ePapyrus" id="printDoc">인쇄</button>
+			</div>
+
+			<div class="menu">
+				<button class="ePapyrus" id="moveToFirstPage">첫 페이지 이동</button>
+				<button class="ePapyrus" id="moveToLastPage">마지막 페이지 이동</button>
+				<button class="ePapyrus" id="viewAsSinglePage">한페이지 보기</button>
+				<button class="ePapyrus" id="viewAsSinglePageScrolling">한페이지 연속보기</button>
+				<button class="ePapyrus" id="viewAsDoublePage">두페이지 보기</button>
+				<button class="ePapyrus" id="viewAsDoublePageScrolling">두페이지 연속보기</button>
+				<button class="ePapyrus" id="rotateCW">시계방향 회전</button>
+			</div>
+
+			<div class="menu">
+				<button class="ePapyrus" id="selectDragMode-SELECT_TEXT">텍스트 선택</button>
+				<button class="ePapyrus" id="selectDragMode-MOVE">스크롤 모드</button>
+				<button class="ePapyrus" id="selectDragMode-SELECT_ANNOT">주석 선택 모드</button>
+			</div>
+
+			<div class="menu">
+				<button class="ePapyrus" id="zoomOut">축소</button>
+				<button class="ePapyrus" id="zoomIn">확대</button>
+				<button class="ePapyrus" id="selectDragMode-MAGNIFY">확대 모드</button>
+				<button class="ePapyrus" id="fitWidth">너비 맞춤</button>
+				<button class="ePapyrus" id="fitHeight">높이 맞춤</button>
+			</div>
+
+			<div class="menu">
+				<button class="ePapyrus" id="selectAnnotation-INK">펜도구</button>
+				<button class="ePapyrus" id="selectAnnotation-LINE">직선</button>
+				<button class="ePapyrus" id="selectAnnotation-CIRCLE">원</button>
+				<button class="ePapyrus" id="selectAnnotation-SQUARE">사각형</button>
+				<button class="ePapyrus" id="selectAnnotation-POLYGON">다각형</button>
+				<button class="ePapyrus" id="selectAnnotation-POLYLINE">연결된 직선도구</button>
+			</div>
+
+			<div class="menu">
+				<button class="ePapyrus" id="selectAnnotation-TEXT_FREE">텍스트 상자 도구</button>
+				<button class="ePapyrus" id="selectAnnotation-TEXT_CALLOUT">텍스트 설명선 도구</button>
+				<button class="ePapyrus" id="selectAnnotation-LINE_DIMENSION">거리 도구</button>
+				<button class="ePapyrus" id="selectAnnotation-TEXT_POPUP">메모</button>
+				<button class="ePapyrus" id="selectAnnotation-POLYLINE_DIMENSION">둘레 도구</button>
+				<button class="ePapyrus" id="selectAnnotation-POLYGON_DIMENSION">넓이 도구</button>
+				<button class="ePapyrus" id="selectAnnotation-STAMP">스탬프 도구</button>
+			</div>
+
+			<div class="menu">
+				<button class="ePapyrus" id="selectAnnotation-HIGHLIGHT">형광펜</button>
+				<button class="ePapyrus" id="selectAnnotation-STRIKE">취소선</button>
+				<button class="ePapyrus" id="selectAnnotation-UNDERLINE">밑줄</button>
+				<input id="query" placeholder="검색어" width="30px;">
+				<button class="ePapyrus" id="searchText">검색</button>
+			</div>
+		</div>
+
+		<iframe id="sd" style="width: 100%; height: 100%" src=""></iframe>
+
+
+		<script type="text/javascript">
+
+			function getUrlVars() {
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+				});
+				return vars;
+			}
+
+			/*var parameters = getUrlVars();
+			console.log(parameters.streamdocsId);
+
+			var url = '/streamdocs/view/sd;streamdocsId=' + parameters.streamdocsId*/
+
+			/**sample page **/
+			var url = url = 'http://192.168.0.12:4200/view/sd;streamdocsId=eyJjdHkiOiJKV1QiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..4GQW3tU4zc9v6iDX5snifg.LRylYxiOvgpqUmej-4786SaQU4WXql6vAggPVlY0TwPfXssOCDCe_q59gsNRCLGHTSsl-2kzdELbRNliuAwxbg7SkyVGS4qNiVYMkfDeqwrQhOnCd2vQ6atKS1ChhZJbRPI9du1ObgZwy-k3XA0zyJdn1ezFaXKhqj2E1QSUKXdswtvHcPqQRUsI-8KnBtGr_H5wWThfm2zWpZxTQTzFZL-CgESBGcBmqGSKnUE821GcTqjksACQBuzaSGXduoc4.5OPo7tvr3CqMcmLpyyePBg';
+
+			$('#sd').attr('src', url);
+			var viewer = document.getElementById('sd');
+			var sdWindow = viewer.contentWindow;
+
+			window.addEventListener('message', function (evt) {
+				console.warn('Message event received', evt);
+
+				var response = JSON.parse(evt.data);
+
+				if (response['messageId'] === 'getZoom' && response['answer'].status) {
+					document.getElementById('getZoom').value = response['answer'].value + '%';
+				}
+
+			});
+
+			var allButtons = document.querySelectorAll('button[class^=ePapyrus]');
+			console.log('Found : ' + allButtons.length + 'div which class starts with');
+
+			for (var i = 0; i < allButtons.length; i++) {
+				allButtons[i].addEventListener('click', function () {
+
+					var idx = this.id.indexOf('-');
+					if (idx !== -1) {
+						var funcName = this.id.substring(0, idx);
+						var args = this.id.substring(idx + 1, this.id.length);
+						sendPostMessage(this.id, funcName, args);
+					} else if (this.id === 'searchText') {
+						sendPostMessage('message', this.id, document.getElementById('query').value);
+					} else {
+						sendPostMessage('message', this.id, '');
+					}
+				})
+			}
+
+			function sendPostMessage(messageId, func, args) {
+				sdWindow.postMessage(JSON.stringify({
+					"messageId": messageId,
+					"ask": {
+						"func": func,
+						"args": [args]
+					}
+				}), "*");
+			}
+		</script>
+	</body>
+</html>

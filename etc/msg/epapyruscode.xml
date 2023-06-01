@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <entry key="COMMAND_UNKNOWN_ERROR"                   >[PDFV Error Code : -1  // 255]명령을 수행하는 과정에서 오류가 발생하였습니다.</entry>
+  <entry key="COMMAND_INIT_ERROR"                      >[PDFV Error Code : -2  // 254]초기화 오류가 발생하였습니다.</entry>
+  <entry key="COMMAND_PARSE_ERROR"                     >[PDFV Error Code : -3  // 253]구문분석 오류가 발생하였습니다.</entry>
+  <entry key="COMMAND_INVALID_ARGUMENT"                >[PDFV Error Code : -4  // 252]유효하지 않은 입력 파라미터입니다.</entry>
+  <entry key="COMMAND_ARGUMENT_INSUFFICIENCY"          >[PDFV Error Code : -5  // 251]불충분한 파라미터 입니다.</entry>
+  <entry key="COMMAND_INPUT_FILE_NOT_FOUND"            >[PDFV Error Code : -6  // 250]입력 파일이 발견되지 않았습니다.</entry>
+  <entry key="COMMAND_CANNOT_OVERWRITE"                >[PDFV Error Code : -7  // 249]덮어쓸 수 없습니다.</entry>
+  <entry key="COMMAND_INVALID_JSON"                    >[PDFV Error Code : -8  // 248]유효하지 않은 Json 형식입니다.</entry>
+  <entry key="COMMAND_JSON_FORMAT_INVALID"             >[PDFV Error Code : -9  // 247]Json 포맷이 부적절합니다.</entry>
+  <entry key="COMMAND_CANNOT_OPEN_FILE"                >[PDFV Error Code : -10 // 246]파일을 열 수 없습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_TARGET_INVALID"         >[PDFV Error Code : -20 // 236]부적절한 작업 대상이 지정되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_TASK_INVALID"           >[PDFV Error Code : -21 // 235]부적절한 작업이 지정되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_EMPTY"                  >[PDFV Error Code : -22 // 234]입력 파라미터가 없습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_OPTION_INVALID"         >[PDFV Error Code : -23 // 233]부적절한 옵션 파라미터가 입력되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_RANGE_INVALID"          >[PDFV Error Code : -24 // 232]부적절한 페이지범위파라미터 형식이 지정되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_FORMAT_INVALID"         >[PDFV Error Code : -25 // 231]부적절한 포맷이 지정되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_TYPE_INVALID"           >[PDFV Error Code : -26 // 230]부적절한 작업 유형이 지정되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_OPERATION_INVALID"      >[PDFV Error Code : -27 // 229]부적절한 처리방법이 지정되었습니다.</entry>
+  <entry key="COMMAND_ARGUMENT_COVERAGE_INVALID"       >[PDFV Error Code : -28 // 228]부적절한 Coverage가 지정되었습니다.</entry>
+  <entry key="COMMAND_PDFV_BUILD_PAGE_TABLE_FAULURE"   >[PDFV Error Code : -40 // 216]페이지의 표를 구성할 수 없습니다.</entry>
+  <entry key="COMMAND_PDFV_LOAD_PDF_FAILURE"           >[PDFV Error Code : -41 // 215]Pdf파일을 로드하는 과정에서 오류가 발생하였습니다.</entry>
+  <entry key="COMMAND_PDFV_LOADCONTENTS_FAILURE"       >[PDFV Error Code : -42 // 214]페이지의 컨텐츠를 로드하는데 실패하였습니다.</entry>
+  <entry key="COMMAND_PDFV_SAVE_FAILURE"               >[PDFV Error Code : -43 // 213]페이지의 컨텐츠를 저장하는데 실패하였습니다.</entry>
+  <entry key="COMMAND_PDFV_UPDATEPAGES_FAILURE"        >[PDFV Error Code : -44 // 212]페이지의 컨텐츠를 업데이트하는데 실패하였습니다.</entry>
+  <entry key="COMMAND_PDFV_GETPAGE_FAILURE"            >[PDFV Error Code : -45 // 211]페이지정보를 추출하는 과정에서 오류가 발생하였습니다..</entry>
+  <entry key="COMMAND_PDFV_RENDERTOJPEG_FAILURE"       >[PDFV Error Code : -46 // 210]페이지의 컨텐츠를 로드하는데 실패하였습니다.</entry>
+  <entry key="COMMAND_ACROFORM_FIELDS_NOT_FOUND"       >[PDFV Error Code : -79 // 177]Acroform 항목이 발견되지 않았습니다.</entry>
+  <entry key="COMMAND_ANNOTATION_ANNOT_TYPE_INVALID"   >[PDFV Error Code : -80 // 176]주석의 유형이 부적절합니다.</entry>
+  <entry key="COMMAND_ANNOTATION_PAGE_HAS_NO_ANNOT"    >[PDFV Error Code : -81 // 175]주석이 없는 페이지 입니다.</entry>
+  <entry key="COMMAND_ANNOTATION_ANNOT_HAS_NOT_SUBTYPE">[PDFV Error Code : -82 // 174]하위타입을 갖지 않는 주석입니다.</entry>
+  <entry key="COMMAND_ANNOTATION_LOAD_FAILURE"         >[PDFV Error Code : -83 // 173]주석을 로드하는 과정에서 오류가 발생하였습니다.</entry>
+  <entry key="COMMAND_ANNOTATION_JSON_INVALID"         >[PDFV Error Code : -84 // 172]주석을 Json으로 추출하는데 실패하였습니다.</entry>
+  <entry key="COMMAND_ANNOTATION_ADD_FAILURE"          >[PDFV Error Code : -85 // 171]주석을 삽입하는데 실패하였습니다.</entry>
+  <entry key="COMMAND_PAGE_ANNOTS_INVALID"             >[PDFV Error Code : -100// 156]부적절한 주석입니다.</entry>
+</properties>

@@ -1,0 +1,22 @@
+{
+  "server": {
+    "queueThreadPool": 5120,
+    "maxIdleTime": 600000,
+    "requestBufferSize": 10000,
+    "port": 8088,
+    "host": "",
+    "sslEnabled" : false,
+    "keyStorePassword": "",
+    "keyStorePath": "",
+    "certAlias" : "",
+    "certPassword" : "",
+    "contextPath": "/streamdocs"
+  },
+  "contexts": {
+    "contextParam": {
+      "spring.profiles.active": "default"
+    },
+    "environment": {
+    }
+  }
+}

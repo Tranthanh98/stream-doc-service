@@ -1,0 +1,14 @@
+{
+  "build": {
+    "version": "5.64.0",
+    "timestamp": 1685523044151,
+    "time": "2023-05-31T08:50:44.151Z",
+    "clean": true
+  },
+  "jenkins": null,
+  "commit": {
+    "hash": "acd7017a40354f22ce64cb255e92936cea82d858",
+    "author": "geunhong.lim",
+    "date": "Wed May 31 17:25:11 2023 +0900"
+  }
+}

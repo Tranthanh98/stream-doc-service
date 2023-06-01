@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+.press_key{
+	position: absolute;
+	display: none;
+	width: 38px;
+	height: 38px;
+	z-index:5000009;
+	opacity: 0.7!important;
+}
+
+.press_enter{
+	position: absolute;
+	display: none;
+	width: 78px;
+	height: 78px;
+	z-index:5000009;
+}
+
+.press_shift{
+	position: absolute;
+	display: none;
+	width: 78px;
+	height: 38px;
+	z-index:5000009;
+}
+
+.press_space{
+	position: absolute;
+	display: none;
+	width: 78px;
+	height: 38px;
+	z-index:5000009;
+}
+
+.secureCursor {
+	position: absolute;
+	cursor: none;
+	pointer-events: none;
+}
+
+.closeLayout {
+	position: absolute;
+/*  	left: 550px;  */
+/*  	top: 8px;  */
+	display: inline;
+	z-index:5000013;
+}
+
+.qwerty_mainDiv{
+	position: absolute;
+	width: 582px;
+	height: 243px;
+	z-index:5000010;
+}
+
+.qwerty_multiMouseType {
+	position: absolute;
+	left: 251px;
+	top: 7px;
+	display: inline;
+	z-index:5000013;
+}
+
+.qwerty_layoutClass {
+	width: 582px;
+	height: 243px;
+	position: absolute;
+	z-index:5000009;
+	opacity: 1;
+}
+
+.number_mainDiv {
+	position: absolute;
+    width: 220px;
+    height: 170px;
+    z-index:5000010;
+}
+
+.number_closeLayout {
+	position: absolute;
+/* 	left: 190px; */
+/* 	top: 8px; */
+	display: inline;
+	z-index:5000013;
+}
+
+.number_layoutClass {
+	width: 220px;
+	height: 170px;
+	position: absolute;
+	z-index:5000009;
+	opacity: 1;
+}
+
+.mobile_mainDiv{
+	position: absolute;
+	width: 100%;
+	z-index:500008;
+}
+
+.mobile_qwerty_layoutClass {
+	width: 99%; 
+	margin-left:1%;
+	position: absolute;
+	z-index:5000009;
+	opacity: 1;
+}
+
+.mobile_qwerty_layoutClassDiv {
+	position:absolute;
+	box-shadow: 1px 0 0 0 #888,
+				0 1px 0 0 #888,
+				1px 1px 0 0 #888,
+				1px 0 0 0 #888 inset,
+				0 1px 0 0 #888 inset;
+	float:left;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:center center;
+}
+
+.mobile_number_layoutClass {
+	width: 99%;
+	position: absolute;
+	z-index:5000009;
+	opacity: 1;
+}
+
+.mobile_number_layoutClassDiv {
+	position:absolute;
+	box-shadow: 1px 0 0 0 #888,
+				0 1px 0 0 #888,
+				1px 1px 0 0 #888,
+				1px 0 0 0 #888 inset,
+				0 1px 0 0 #888 inset;
+	float:left;
+	background-repeat:no-repeat;
+	background-size:contain;
+	background-position:center center;
+}

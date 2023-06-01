@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration packagingData="true">
+	<property scope="context" name="SD_LOG_ROOT" value="/ePapyrus/sd/log" />
+
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%-16.16thread] %-5level [%-8.-8marker] %-36.36logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="dailyRollingFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${SD_LOG_ROOT}/sd.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${SD_LOG_ROOT}/sd.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!-- each file should be at most 100MB, keep 60 days worth of history, but at most 10GB -->
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>10GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>%d{MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.quartz.core.QuartzSchedulerThread" level="INFO"/>
+<!--	<logger name="com.epapyrus.pdf.sd.license.StreamdocsLicense" level="WARN" />-->
+
+	<logger name="org.springframework" level="INFO"/>
+	<logger name="org.eclipse" level="INFO"/>
+	<logger name="org.apache" level="INFO"/>
+	<logger name="org.hibernate" level="WARN"/>
+	<logger name="com.epapyrus" level="INFO"/>
+	<!-- command line log -->
+<!-- 	<logger name="com.epapyrus.process.module" level="WARN"/> -->
+	<!-- web access log -->
+<!-- 	<logger name="com.epapyrus.pdf.sd.restapi.WebLog" level="WARN"/> -->
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="dailyRollingFileAppender" />
+	</root>
+</configuration>

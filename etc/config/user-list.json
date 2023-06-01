@@ -1,0 +1,8 @@
+[
+	{
+		"userId":"admin",
+		"name":"admin",
+		"type":"admin",
+		"password":"streamdocs-admin"
+	}
+]

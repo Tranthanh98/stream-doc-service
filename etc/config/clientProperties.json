@@ -1,0 +1,308 @@
+[
+	{
+		"key": "sdAgentEnableHTTPS",
+		"value": "true",
+		"description": "플러그인 호출 시 HTTPS 사용 여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties"
+	},
+	{
+		"key": "sdPluginVersion",
+		"value": "11.6.0",
+		"description": "플러그인 버전 정보",
+		"setOn": "C",
+		"inputType": "string",
+		"category": "clientProperties"
+	},
+	{
+		"key": "sdAgentModule",
+		"value": "Default",
+		"description": "플러그인 모듈 종류",
+		"setOn": "C",
+		"inputType": "string",
+		"category": "clientProperties"
+	},
+	{
+		"key": "printTimestampInPlugin",
+		"value": "true",
+		"description": "플러그인 인쇄 시 TimeStamp 삽입 여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties"
+	},
+	{
+		"key": "printWithoutDialogInPlugin",
+		"value": "false",
+		"description": "플러그인 인쇄 시 설정 창 미표시 여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties"
+	},
+	{
+		"key": "pageImageRatio",
+		"value": "1",
+		"description": "이미지 비율",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "retryCount",
+		"value": "3",
+		"description": "이미지 요청 호출 재시도 횟수",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "retryInterval",
+		"value": "3000",
+		"description": "이미지 요청 호출 재시도 Interval",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "sideView.resizeable",
+		"value": "true",
+		"description": "[SIDE-VIEW] 크기 조절 가능 여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties"
+	},
+	{
+		"key": "sideView.initialSize",
+		"value": "300",
+		"description": "[SIDE-VIEW] 크기",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "sideView.minSize",
+		"value": "250",
+		"description": "[SIDE-VIEW] 최소 크기",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "sideView.maxSize",
+		"value": "500",
+		"description": "[SIDE-VIEW] 최대 크기",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "thumbnailViewOpt.autoColumn",
+		"value": "false",
+		"description": "[THUMBNAIL] 컬럼 자동 맞춤 사용여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties",
+		"secret": true
+	},
+	{
+		"key": "thumbnailViewOpt.initialColumn",
+		"value": "1",
+		"description": "[THUMBNAIL] 초기 표시 컬럼 수",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties",
+		"secret": true
+	},
+	{
+		"key": "rightSideView.resizeable",
+		"value": "true",
+		"description": "[RIGHT-SIDE-VIEW] 사이즈 조절 가능 여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties"
+	},
+	{
+		"key": "rightSideView.initialSize",
+		"value": "300",
+		"description": "[RIGHT-SIDE-VIEW] 초기 사이즈",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "rightSideView.minSize",
+		"value": "300",
+		"description": "[RIGHT-SIDE-VIEW] 최소 크기",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "rightSideView.maxSize",
+		"value": "500",
+		"description": "[RIGHT-SIDE-VIEW] 최대 크기",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "hitTestToleranceConst",
+		"value": "2",
+		"description": "터치 감도",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "minScale",
+		"value": "30",
+		"description": "최소 축소 비율",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "maxScale",
+		"value": "400",
+		"description": "최대 확대 비율",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	},
+	{
+		"key": "skipPasswordCheck",
+		"value": "true",
+		"description": "문서 암호 체크 건너뛰기 여부",
+		"setOn": "C",
+		"inputType": "check",
+		"category": "clientProperties"
+	},
+	{
+		"key": "errorPageTelephone",
+		"value": "",
+		"description": "에러페이지에서 나타낼 문의 번호 (빈 문자열이면 표시하지 않음)",
+		"setOn": "C",
+		"inputType": "string",
+		"category": "clientProperties"
+	},
+	{
+		"key": "linkActMode",
+		"value": "true",
+		"description" :"링크 활성화",
+		"setOn" : "C",
+		"inputType" : "check",
+		"category" : "preferences"
+	},
+	{
+		"key": "formFieldHighlighted",
+		"value": "true",
+		"description" :"폼필드 강조",
+		"setOn" : "C",
+		"inputType" : "check",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.opacity",
+		"value": "100",
+		"description" :"주석 투명도",
+		"setOn" : "C",
+		"inputType" : "number",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.highlight",
+		"value": "#FFD100",
+		"description" :"형광펜 주석 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.strike",
+		"value": "#E52237",
+		"description" :"취소선 주석 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.underline",
+		"value": "#E52237",
+		"description" :"밑줄 주석 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.polygon",
+		"value": "#008EFF",
+		"description" :"다각형 주석 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.memo",
+		"value": "#ffD100",
+		"description" :"메모 주석 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.freetext",
+		"value": "#008EFF",
+		"description" :"텍스트 상자 주석 테두리 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.redactBefore",
+		"value": "#0075BE",
+		"description" :"교정 표시 영역 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.color.redactAfter",
+		"value": "#444444",
+		"description" :"교정된 영역 채우기 색상",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.writer",
+		"value": "",
+		"description" :"주석 작성자",
+		"setOn" : "C",
+		"inputType" : "string",
+		"category" : "preferences"
+	},
+	{
+		"key": "annot.continueWriting",
+		"value": "false",
+		"description" :"주석 이어쓰기",
+		"setOn" : "C",
+		"inputType" : "check",
+		"category" : "preferences"
+	},
+	{
+		"key": "rightSideView.tabs.dap",
+		"value": "true",
+		"description" :"[RIGHT-SIDEVIEW] DAP목록 사용여부",
+		"setOn" : "C",
+		"inputType" : "check",
+		"category" : "viewProperties"
+	},
+	{
+		"key": "scaleChange",
+		"value": "10",
+		"description": "확대 증감폭",
+		"setOn": "C",
+		"inputType": "number",
+		"category": "clientProperties"
+	}
+]

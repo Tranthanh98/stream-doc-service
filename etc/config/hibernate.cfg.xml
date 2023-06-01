@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "classpath://org/hibernate/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- List of XML mapping files -->
+		<mapping class="com.epapyrus.pdf.sd.PdfResource" />
+		<mapping class="com.epapyrus.pdf.sd.PdfAuth" />
+		<mapping class="com.epapyrus.pdf.sd.PdfOpenLimitInfo" />
+		<mapping class="com.epapyrus.pdf.sd.history.DocumentUsageHistory" />
+		<mapping class="com.epapyrus.pdf.sd.env.Connectivity" />
+		<mapping class="com.epapyrus.pdf.sd.user.User" />
+		<mapping class="com.epapyrus.pdf.sd.user.RefreshToken" />
+		<mapping class="com.epapyrus.pdf.sd.doc.OrphanResource" />
+		<mapping class="com.epapyrus.pdf.sd.acl.Dejavu" />
+		<mapping class="com.epapyrus.pdf.sd.acroform.CalculationScript" />
+
+		<!-- statistic -->
+<!--		DocumentStatistics는 더이상 사용하지 않고 관련 데이터는 TimeZoneStatistics로 부터 가져오도록 통합 -->
+<!--		<mapping class="com.epapyrus.pdf.sd.statistics.DocumentStatistics" />-->
+		<mapping class="com.epapyrus.pdf.sd.statistics.TimeZoneStatistics" />
+		<mapping class="com.epapyrus.pdf.sd.statistics.ErrorStatistics" />
+		<mapping class="com.epapyrus.pdf.sd.statistics.SystemUsageStatistics" />
+
+		<!-- admin -->
+		<mapping class="com.epapyrus.pdf.sd.env.StreamdocsConfig" />
+		<mapping class="com.epapyrus.pdf.sd.quartz.CronSchedule" />
+	</session-factory>
+</hibernate-configuration>

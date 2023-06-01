@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Check</title>
+    <defs>
+        <polygon id="path-1" points="0 0 14 0 14 14 0 14"></polygon>
+    </defs>
+    <g id="😄PC-SYMBOL😄" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="폼-속성_단추,-상자-스타일_구성" transform="translate(-143.000000, -561.000000)">
+            <g id="Check" transform="translate(144.000000, 562.000000)">
+                <g id="Group-3" transform="translate(5.000000, 5.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Clip-2"></g>
+                    <path d="M5.46261715,12.938452 C5.12408476,12.938452 4.78407486,12.8214784 4.50815157,12.5832941 L0.50430879,9.12732047 C-0.104975647,8.6012152 -0.171647876,7.68200468 0.356004637,7.07410994 C0.883103086,6.46639941 1.80469428,6.39953099 2.41434809,6.92600468 L5.32336269,9.43697836 L11.4448336,2.49426783 C11.9769187,1.89060994 12.8990639,1.83184678 13.5044699,2.3623731 C14.1095065,2.89345204 14.1687913,3.81303099 13.6365216,4.4168731 L6.55910752,12.444031 C6.27081015,12.7710047 5.86763709,12.938452 5.46261715,12.938452" id="Fill-1" fill="#363636" mask="url(#mask-2)"></path>
+                </g>
+                <circle id="Oval" stroke="#363636" stroke-width="2" cx="12" cy="12" r="12"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
